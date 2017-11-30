@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todolist</title>
+    <link rel="stylesheet" href="base.css">
+</head>
+<body>
+<div class="nav">
+    <section>
+        <div class="todo">ToDoList</div>
+        <input type="text" placeholder="添加ToDo" class="jia">
+    </section>
+</div>
+<div class="box">
+    <h2 class="h22">正在进行 <span class='span1'>0</span></h2>
+    <div class="box1">
+        <!--<li class='li'>-->
+        <!--<input type="checkbox" class='radio'>-->
+        <!--<p class='title'>1111</p>-->
+        <!--<div class="delete">-->
+        <!--<div class="del"></div>-->
+        <!--</div>-->
+        <!--</li>-->
+    </div>
+    <h2 class='h2'>已经完成 <span class='span2'>0</span></h2>
+    <div class="box2"></div>
+    <div class="before"></div>
+</div>
+<footer>Copyright © 2014 todolist.cn clear</footer>
+</body>
+<script src="jquery/jquery.min.js"></script>
+<script>
+    let todo=[
+//    {id:0,title:'aaa',flag:false},
+//    {id:1,title:'bbb',flag:false},
+//    {id:2,title:'ccc',flag:true},
+//    {id:3,title:'ddd',flag:false},
+//    {id:4,title:'eee',flag:true},
+//    {id:5,title:'fff',flag:false}
+    ]
+//    localStorage.date=JSON.stringify(todo);
+    if(localStorage.date){
+        console.log(1);
+        let dates=JSON.parse(localStorage.date);
+    }
+//
+    function reader() {
+        localStorage.date=JSON.stringify(todo);
+        dates=JSON.parse(localStorage.date);
+        let doing=[];
+        let done=[];
+        let str='';
+        let atr='';
+        let a=0,b=0;
+        let datebase=[];
+        dates.forEach(function (val) {
+            if(val.flag){
+                done.push(val);
+//                datebase.push({id:val.id,title:val.title,flag:true});
+            }
+            else{
+                doing.push(val);
+//                datebase.push({id:val.id,title:val.title,flag:false});
+            }
+        })
+//        localStorage.date=JSON.stringify(datebase);
+//        let dates=JSON.parse(localStorage.date);
+        doing.forEach(function (val) {
+            a++;
+            str+=`<li class='li' id="${val.id}">
+                 <input type="checkbox" class='radio'>
+                 <p class='title'>${val.title}</p>
+                 <div class="delete">
+                 <div class="del"></div>
+                 </div>
+                 </li>`
+        })
+        done.forEach(function (val) {
+            b++;
+            atr+=`<li class='li' id="${val.id}">
+                 <input type="checkbox" class='radio'>
+                 <p class='title'>${val.title}</p>
+                 <div class="delete">
+                 <div class="del"></div>
+                 </div>
+                 </li>`;
+        })
+        $('.box1').html(str);
+        $('.box2').html(atr);
+        $('.span1').html(a);
+        $('.span2').html(b);
+    }
+    reader();
+    $('.box').on('click','.radio',function () {
+        let id=$(this).closest('li').attr('id');
+        let ind=todo.findIndex(function (val,ind) {
+            if(val.id==id){
+                return ind;
+            }
+        })
+        let flag=todo[ind].flag;
+        if(flag){
+            todo[ind].flag=false;
+            reader();
+        }else{
+            $(this).closest('li');
+            todo[ind].flag=true;
+            reader();
+        }
+    }).on('click','.del',function () {
+        let id=$(this).closest('li').attr('id');
+        let index=todo.findIndex((val,ind)=>{
+            if(id==val.id){
+                return ind;
+            }
+        })
+        todo.splice(index,1);
+        reader();
+    }).on('click','.title',function () {
+        let input=$('<input>');
+        let val=$(this).html();
+//        console.log(val);
+        input.val(val);
+        $(this).html('');
+        $(this).append(input);
+        $(input).focus();
+        $(input).blur(()=>{
+            let vas=$(input).val();
+            $(this).html(vas);
+        });
+    })
+    let ids=6;
+    $('body').on('keyup',function (e) {
+        let which=e.which;
+        console.log(which);
+        if(which==13){
+            let val=$('.jia').val();
+            todo.push({id:ids,title:val,flag:false});
+            $('.jia').val('');
+            ids++;
+            reader();
+        }
+    })
+</script>
+</html>
