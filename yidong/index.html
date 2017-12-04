@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
      <meta charset="UTF-8">
@@ -617,45 +617,48 @@
     	</div>
     	<div class="banquansy">Copyright @1999-2017 中国移动 版权所有</div>
     </section>
-<script type="text/javascript" src='js/function1.js'></script>
-<script type="text/javascript" src='js/animate.js'></script>
-<script type="text/javascript">
-	zylunbo('.bannertu','.bannerk','.bannerleft','.bannerright','.diandian','#E40077','#bbb')
-	dzzylunbo('.lunbotu','.yhcx1','.lunboleft','.lunboright','.lunbotu','.yhcx',4);
-	const ggbanner=$('.ggbanner')[0];
-	const ggbannertu=$('.ggbannertu');
-	const ggbannerbox=$('.ggbannerbox')[0];
-	const zuo=$('.zuozuo')[0];
-	const you=$('.youyou')[0];
-	var t=setInterval(move,3000);
-	var flag=true;
-	function move(type='l'){
-		flag=false;
+
+</body>
+<script src='js/animate.js'></script>
+<!-- <script type="text/javascript" src='js/function1.js'></script> -->
+<!-- <script type="text/javascript">
+    // console.log($('.bannertu').length());
+    zylunbo('.bannertu','.bannerk','.bannerleft','.bannerright','.diandian','#E40077','#bbb')
+    dzzylunbo('.lunbotu','.yhcx1','.lunboleft','.lunboright','.lunbotu','.yhcx',4);
+    const ggbanner=$('.ggbanner')[0];
+    const ggbannertu=$('.ggbannertu');
+    const ggbannerbox=$('.ggbannerbox')[0];
+    const zuo=$('.zuozuo')[0];
+    const you=$('.youyou')[0];
+    var t=setInterval(move,3000);
+    var flag=true;
+    function move(type='l'){
+        flag=false;
         if(type=='l'){
-        	ggbannerbox.style.left=-480+'px';
-		    var first=ggbannerbox.firstElementChild;
-		    ggbannerbox.appendChild(first);
-		    ggbannerbox.style.left=0;
-		    flag=true;
+            ggbannerbox.style.left=-480+'px';
+            var first=ggbannerbox.firstElementChild;
+            ggbannerbox.appendChild(first);
+            ggbannerbox.style.left=0;
+            flag=true;
         }
-		else if(type=='r'){
-			ggbannerbox.style.left=480+'px';
-			var first=ggbannerbox.firstElementChild;
-			var last=ggbannerbox.lastElementChild;
-			ggbannerbox.insertBefore(last,first);
-			ggbannerbox.style.left=0;
-			flag=true;
-		}
-	}
+        else if(type=='r'){
+            ggbannerbox.style.left=480+'px';
+            var first=ggbannerbox.firstElementChild;
+            var last=ggbannerbox.lastElementChild;
+            ggbannerbox.insertBefore(last,first);
+            ggbannerbox.style.left=0;
+            flag=true;
+        }
+    }
     zuo.onclick=function(){
-    	if(flag){
-    		move(type='r');
-    	}
+        if(flag){
+            move(type='r');
+        }
     }
     you.onclick=function(){
-    	if(flag){
-    		move(type='l');
-    	}
+        if(flag){
+            move(type='l');
+        }
     }
     const bankuai=$('.bankuai')[0];
     const jiahao=$('.jiahao');
@@ -663,38 +666,39 @@
     const jiahao1=$('.jiahao1');
     const chenhao=$('.chenhao');
     for(let i=0;i<jiahao.length;i++){
-    	jiahao[i].onclick=function(){
-    		jiahao[i].style.display='none';
-    		chenhao[i].style.display='block';
-    		for(let j=0;j<jiahao.length;j++){
-    			// bankuai.style.height=227+'px';
-    			jiahao1[j].style.display='none';
-    			spans[j].style.height=44+'px';
-    			// chenhao[j].style.display='block';
-    		}
-    		bankuai.style.height=437+'px';
-    		spans[i].style.height=254+'px';
-    		jiahao1[i].style.display='block';
-    	}
+        jiahao[i].onclick=function(){
+            jiahao[i].style.display='none';
+            chenhao[i].style.display='block';
+            for(let j=0;j<jiahao.length;j++){
+                // bankuai.style.height=227+'px';
+                jiahao1[j].style.display='none';
+                spans[j].style.height=44+'px';
+                // chenhao[j].style.display='block';
+            }
+            bankuai.style.height=437+'px';
+            spans[i].style.height=254+'px';
+            jiahao1[i].style.display='block';
+        }
     }
     for(let i=0;i<chenhao.length;i++){
-    	chenhao[i].onclick=function(){
+        chenhao[i].onclick=function(){
            chenhao[i].style.display='none';
            jiahao[i].style.display='block';
            bankuai.style.height=227+'px';
            spans[i].style.height=44+'px';
            jiahao1[i].style.display='none';
-    	}
+        }
     }
     const xzhuafei=$('.xzhuafei li');
     for(let i=0;i<xzhuafei.length;i++){
-    	xzhuafei[i].onclick=function(){
-    		for(let j=0;j<xzhuafei.length;j++){
-    			xzhuafei[j].style.background='#fff';
-    		}
-    		xzhuafei[i].style.background='#e40077';
-    	}
+        xzhuafei[i].onclick=function(){
+            for(let j=0;j<xzhuafei.length;j++){
+                xzhuafei[j].style.background='#fff';
+            }
+            xzhuafei[i].style.background='#e40077';
+        }
     }
-</script>
-</body>
+</script> -->
+<script src="js/jquery.min.js"></script>
+<script src="js/yidong.js"></script>
 </html>

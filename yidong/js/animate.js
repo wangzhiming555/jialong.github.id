@@ -1,52 +1,49 @@
 /*
-  º¯Êı colorAnimate (obj,attr,val,dur,fn,callback)
-  obj   Òª´¦ÀíµÄ¶ÔÏó
-  attr  Òª´¦ÀíµÄÊôĞÔ  background   color
-  val   ×îÖÕÑÕÉ« rbg    #
-  fn    ¶¯»­µÄ·½Ê½
-  callback  ±ä»¯Íê³ÉÖ®ºóÒª´¦ÀíµÄÄÚÈİ
+  å‡½æ•° colorAnimate (obj,attr,val,dur,fn,callback)
+  obj   è¦å¤„ç†çš„å¯¹è±¡
+  attr  è¦å¤„ç†çš„å±æ€§  background   color
+  val   æœ€ç»ˆé¢œè‰² rbg    #
+  fn    åŠ¨ç”»çš„æ–¹å¼
+  callback  å˜åŒ–å®Œæˆä¹‹åè¦å¤„ç†çš„å†…å®¹
 */
 /*
-   ¶¯»­º¯Êı animate (obj,attrObj,dur,fun,callback)
-   obj   Òª¶¯»­µÄ¶ÔÏó
-   attrobj   Òª¶¯»­µÄÊôĞÔ¶ÔÏó{width:xxxx,height:xxx,left:xxxx,top:xxxx,opacity:xxx}
-   dur   ³ÖĞøÊ±¼ä
-   fun   ¶¯»­·½Ê½
-   callback ±ä»¯Íê³ÉÖ®ºóÒª´¦ÀíµÄÄÚÈİ
+   åŠ¨ç”»å‡½æ•° animate (obj,attrObj,dur,fun,callback)
+   obj   è¦åŠ¨ç”»çš„å¯¹è±¡
+   attrobj   è¦åŠ¨ç”»çš„å±æ€§å¯¹è±¡{width:xxxx,height:xxx,left:xxxx,top:xxxx,opacity:xxx}
+   dur   æŒç»­æ—¶é—´
+   fun   åŠ¨ç”»æ–¹å¼
+   callback å˜åŒ–å®Œæˆä¹‹åè¦å¤„ç†çš„å†…å®¹
 */
 
-//¶¯»­Ëã·¨
-/*
-		 Linear£ºÎŞ»º¶¯Ğ§¹û(ÔÈËÙÔË¶¯)£»
-			Quad£º¶ş´Î·½µÄ»º¶¯£»
-			Cubic£ºÈı´Î·½µÄ»º¶¯
-			Quartic£ºËÄ´Î·½µÄ»º¶¯£»
-			Quintic£ºÎå´Î·½µÄ»º¶¯£»
-			Sinusoidal£ºÕıÏÒÇúÏßµÄ»º¶¯£»
-			Exponential£ºÖ¸ÊıÇúÏßµÄ»º¶¯£»
-			Circular£ºÔ²ĞÎÇúÏßµÄ»º¶¯£»
-			Elastic£ºÖ¸ÊıË¥¼õµÄÕıÏÒÇúÏß»º¶¯£»
-			Back£º³¬¹ı·¶Î§µÄÈı´Î·½»º¶¯£©£»
-			Bounce£ºÖ¸ÊıË¥¼õµÄ·´µ¯»º¶¯¡£
+//åŠ¨ç”»ç®—æ³•
+/*Tween
+		 Linearï¼šæ— ç¼“åŠ¨æ•ˆæœ(åŒ€é€Ÿè¿åŠ¨)ï¼›
+			Quadï¼šäºŒæ¬¡æ–¹çš„ç¼“åŠ¨ï¼›
+			Cubicï¼šä¸‰æ¬¡æ–¹çš„ç¼“åŠ¨
+			Quarticï¼šå››æ¬¡æ–¹çš„ç¼“åŠ¨ï¼›
+			Quinticï¼šäº”æ¬¡æ–¹çš„ç¼“åŠ¨ï¼›
+			Sinusoidalï¼šæ­£å¼¦æ›²çº¿çš„ç¼“åŠ¨ï¼›
+			Exponentialï¼šæŒ‡æ•°æ›²çº¿çš„ç¼“åŠ¨ï¼›
+			Circularï¼šåœ†å½¢æ›²çº¿çš„ç¼“åŠ¨ï¼›
+			Elasticï¼šæŒ‡æ•°è¡°å‡çš„æ­£å¼¦æ›²çº¿ç¼“åŠ¨ï¼›
+			Backï¼šè¶…è¿‡èŒƒå›´çš„ä¸‰æ¬¡æ–¹ç¼“åŠ¨ï¼‰ï¼›
+			Bounceï¼šæŒ‡æ•°è¡°å‡çš„åå¼¹ç¼“åŠ¨ã€‚
 			
 
-			Ã¿¸öĞ§¹û¶¼·ÖÈı¸ö»º¶¯·½Ê½£¨·½·¨£©£¬·Ö±ğÊÇ£º
-			easeIn£º´Ó0¿ªÊ¼¼ÓËÙµÄÔË¶¯£»
-			easeOut£º¼õËÙµ½0µÄÔË¶¯£»
-			easeInOut£ºÇ°°ë¶Î´Ó0¿ªÊ¼¼ÓËÙ£¬ºó°ë¶Î¼õËÙµ½0µÄÔË¶¯¡£
+			æ¯ä¸ªæ•ˆæœéƒ½åˆ†ä¸‰ä¸ªç¼“åŠ¨æ–¹å¼ï¼ˆæ–¹æ³•ï¼‰ï¼Œåˆ†åˆ«æ˜¯ï¼š
+			easeInï¼šä»0å¼€å§‹åŠ é€Ÿçš„è¿åŠ¨ï¼›
+			easeOutï¼šå‡é€Ÿåˆ°0çš„è¿åŠ¨ï¼›
+			easeInOutï¼šå‰åŠæ®µä»0å¼€å§‹åŠ é€Ÿï¼ŒååŠæ®µå‡é€Ÿåˆ°0çš„è¿åŠ¨ã€‚
 			
 
 
-			º¯ÊıµÄËÄ¸ö²ÎÊı·Ö±ğ´ú±í£º
-				t--- current time£¨µ±Ç°Ê±¼ä£©£»0 +=60   
-				b--- beginning value£¨³õÊ¼Öµ£©£»100  
-				c--- change in value£¨±ä»¯Á¿£©£»500-100
-				d---duration£¨³ÖĞøÊ±¼ä£©  5000
-			Tween.Quad.easeInt()????????????????????????????Tween.Quad.easeIn()
-	     	ÔËËãµÄ½á¹û¾ÍÊÇµ±Ç°µÄÔË¶¯Â·³Ì¡£
-		   ÕûÀí·­Òë:Code±¦±¦
-		   ·­Òë»ò½âÊÍ²»¶ÔµÄµØ·½Ï£Íû¸÷Î»ĞŞÕı¡¢ÅúÆÀ¡£
-		   50
+			å‡½æ•°çš„å››ä¸ªå‚æ•°åˆ†åˆ«ä»£è¡¨ï¼š
+				t--- current timeï¼ˆå½“å‰æ—¶é—´ï¼‰ï¼›0 +=60   
+				b--- beginning valueï¼ˆåˆå§‹å€¼ï¼‰ï¼›100  
+				c--- change in valueï¼ˆå˜åŒ–é‡ï¼‰ï¼›500-100
+				d---durationï¼ˆæŒç»­æ—¶é—´ï¼‰  5000
+			Tween.Quad.easeInt()
+	     	è¿ç®—çš„ç»“æœå°±æ˜¯å½“å‰çš„è¿åŠ¨è·¯ç¨‹ã€‚
     Tween.Linear     
 	Tween.Quad.easeIn
 */
@@ -195,16 +192,15 @@
     }
  }
  /*
-   ¶¯»­º¯Êı animate (obj,attrObj,dur,fun,callback)
-   obj   Òª¶¯»­µÄ¶ÔÏó
-   attrobj   Òª¶¯»­µÄÊôĞÔ¶ÔÏó{width:xxxx,height:xxx,left:xxxx,top:xxxx,opacity:xxx}
-   dur   ³ÖĞøÊ±¼ä
-   fun   ¶¯»­·½Ê½
-   callback »Øµ÷º¯Êı 
+   åŠ¨ç”»å‡½æ•° animate (obj,attrObj,dur,fun,callback)
+   obj   è¦åŠ¨ç”»çš„å¯¹è±¡
+   attrobj   è¦åŠ¨ç”»çš„å±æ€§å¯¹è±¡{width:xxxx,height:xxx,left:xxxx,top:xxxx,opacity:xxx}
+   dur   æŒç»­æ—¶é—´
+   fun   åŠ¨ç”»æ–¹å¼
+   callback å›è°ƒå‡½æ•° 
    */
   
    function animate (obj,attrObj,dur,fun,callback) {
-
 	 clearInterval(obj.t);
 	if(arguments.length==2){
 	  dur=500;
@@ -276,43 +272,28 @@
 	},60)
   }
 
- function setCss (obj,attr,val) {
 
+
+
+ function setCss (obj,attr,val) {
    if(obj.nodeType!==1){
      return;
    }
 
-   //³õÊ¼»¯²ÎÊı
+   //åˆå§‹åŒ–å‚æ•°
   var attr=attr.replace(/^\s*|\s*$/g,"");
-
-     //»ñÈ¡Öµ
+     //è·å–å€¼
    if(arguments.length==2){
-       //Î»ÖÃºÍ³ß´ç
+       //ä½ç½®å’Œå°ºå¯¸
+      if(attr=="height"||attr=="width"||attr=="top"||attr=="left"||attr=="right"|| attr=="bottom"){
+	var val=obj.currentStyle?parseInt(obj.currentStyle[attr]):parseInt(getComputedStyle(obj,null)[attr]);
+		if(!val){
+		 var str="offset"+attr.replace(attr.charAt(0),attr.charAt(0).toUpperCase());
 
-       //Ô­Öµ×¢Ïú
-    //   if(attr=="height"||attr=="width"||attr=="top"||attr=="left"||attr=="right"|| attr=="bottom"){
-       
-      
-	 //var val=obj.currentStyle?parseInt(obj.currentStyle[attr]):parseInt(getComputedStyle(obj,null)[attr]);
-		// if(!val){
-		//  var str="offset"+attr.replace(attr.charAt(0),attr.charAt(0).toUpperCase());
-
-		//  val=obj[str];
-		//}
-		// return val;
-	  //}
-
-    //**/×Ô¼Ó
-
-     if(attr=="height"||attr=="width"||attr=="top"||attr=="left"||attr=="right"|| attr=="bottom"){
-       var cc= parseInt(obj.currentStyle? ((obj.currentStyle[attr]==undefined||obj.currentStyle[attr]=="auto")?0:obj.currentStyle[attr]):(getComputedStyle(obj,null)[attr]==undefined?0:getComputedStyle(obj,null)[attr]));
-       return cc;
-     }
-    if(attr=="offsetHeight"||attr=="offsetWidth"||attr=="offsetTop"||attr=="offsetLeft"){
-       var cc= obj[attr];
-       return cc;
-     }
-     //*//
+		 val=obj[str];
+		}
+		return val;
+	  }
 
 	  
 	   if(attr=="padding"||attr=="margin"||attr=="paddingTop"||attr=="paddingLeft"||attr=="paddingRight"||attr=="paddingBottom"||attr=="marginTop"||attr=="marginLeft"||attr=="marginRight"||attr=="marginBottom"){
@@ -320,26 +301,19 @@
 
 	     return cc;
 	   }
-     //×Ô¼Ó
-
-     if(attr=="backgroundPositionX"||attr=="backgroundPositionY"){
-      var cc= parseInt(obj.currentStyle? ((obj.currentStyle[attr]==undefined||obj.currentStyle[attr]=="auto")?0:obj.currentStyle[attr]):(getComputedStyle(obj,null)[attr]==undefined?0:getComputedStyle(obj,null)[attr]));
-      return cc;
-     }
-        //Í¸Ã÷¶È
+        //é€æ˜åº¦
 	  if(attr=="opacity"){
 	    return obj.currentStyle?parseFloat(obj.currentStyle[attr]||1):parseFloat(getComputedStyle(obj,null)[attr]||1);
 	  }
-	  //ÑÕÉ«
+	  //é¢œè‰²
 	  if(attr=='color'||attr=="background"|| attr=="backgroundColor"||attr=='borderBottomColor'||attr== 'borderLeftColor'||    attr=='borderRightColor'||attr=='borderTopColor'){
 		   var colors=obj.currentStyle?(obj.currentStyle[attr]||"#000000"):(getComputedStyle(obj,null)[attr]||"#000000");
-		   //»ñÈ¡¶ÔÏó
+		   //è·å–å¯¹è±¡
 		
 		   return getColor(colors);
          
 		}
 		if(attr=="scrollTop"){
-
 		   return obj.scrollTop;
 		}
 
@@ -356,15 +330,8 @@
 	 case "right":
 	 case "padding":
 	 case "margin":
-   case 'marginTop':
-   case 'marginLeft':
-   case 'marginRight':
-   case 'marginBottom':
 	 case "paddingLeft":
-   case "paddingRight":
-   //ĞŞ¸Ä£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡£¡
-   case "backgroundPositionX":
-	 case "backgroundPositionY":
+	 case "paddingRight":
 	 obj.style[attr]=val+"px";
 	 break;
      case "opacity":
@@ -381,6 +348,7 @@
 		case 'borderLeftColor':
 		case 'borderRightColor':
 		case 'borderTopColor':
+    case "borderColor":
 		obj.style[attr]=val;
 	 break;
 	 default:
@@ -390,12 +358,12 @@
    }
  }
 
- //ÑÕÉ«½¥±ä¶¯»­
- //»ñµÃÑÕÉ«
+ //é¢œè‰²æ¸å˜åŠ¨ç”»
+ //è·å¾—é¢œè‰²
 function getColor (color) {
   var str,r,g,b,arr;
   if(typeof color=="string"){
-    //16 ½øÖÆ
+    //16 è¿›åˆ¶
     if(color.charAt(0)==="#"){
 	  str=color.substring(1)
 	  r=parseInt(str.substr(0,2),16);
@@ -414,12 +382,12 @@ function getColor (color) {
 }
 
 /*
-  º¯Êı colorAnimate (obj,attr,val,dur,fn,callback)
-  obj   Òª´¦ÀíµÄ¶ÔÏó
-  attr  Òª´¦ÀíµÄÊôĞÔ  background   color
-  val   ×îÖÕÑÕÉ« rbg  #
-  fn    ¶¯»­µÄ·½Ê½
-  callback  ±ä»¯Íê³ÉÖ®ºóÒª´¦ÀíµÄÄÚÈİ
+  å‡½æ•° colorAnimate (obj,attr,val,dur,fn,callback)
+  obj   è¦å¤„ç†çš„å¯¹è±¡
+  attr  è¦å¤„ç†çš„å±æ€§  background   color
+  val   æœ€ç»ˆé¢œè‰² rbg  #
+  fn    åŠ¨ç”»çš„æ–¹å¼
+  callback  å˜åŒ–å®Œæˆä¹‹åè¦å¤„ç†çš„å†…å®¹
 */
 function colorAnimate (obj,attr,val,dur,fn,callback) {
 if(obj.time){
