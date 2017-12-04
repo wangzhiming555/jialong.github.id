@@ -67,7 +67,7 @@
 </body>
 <script>
     $.ajax({
-        url:'http://api.jisuapi.com/news/channel?appkey=d45334315bc4579b',
+        url:'https://api.jisuapi.com/news/channel?appkey=d45334315bc4579b',
         dataType:'jsonp',
         success:function (e) {
             let str='';
@@ -85,14 +85,14 @@
         let start=obj.start;
         let num=obj.num;
         let pindao=obj.pindao;
-        console.log(pindao.text());
+        // console.log(pindao.text());
         $.ajax({
-            url:'http://api.jisuapi.com/news/get?channel='+pindao.text()+'&start='+start+'&num='+num+'&appkey=d45334315bc4579b',
+            url:'https://api.jisuapi.com/news/get?channel='+pindao.text()+'&start='+start+'&num='+num+'&appkey=d45334315bc4579b',
             dataType:'jsonp',
             success:function (a) {
                 let atr='';
                 let arr=a.result.list;
-                console.log(arr);
+                // console.log(arr);
                 arr.forEach(function (val) {
                     if(val.pic){
                         atr+=`<a href="${val.weburl}">
@@ -145,18 +145,18 @@
             num:nums,
             pindao:$('.active')
         })
-        console.log($(this));
+        // console.log($(this));
     })
     function sousuo(input) {
         let val=input.val();
         console.log(val);
         $.ajax({
-            url:'http://api.jisuapi.com/news/search?keyword='+val+'&appkey=d45334315bc4579b',
+            url:'https://api.jisuapi.com/news/search?keyword='+val+'&appkey=d45334315bc4579b',
             dataType:'jsonp',
             success:function (s) {
                 let arr=s.result.list;
                 let atr='';
-                console.log(arr);
+                // console.log(arr);
                 arr.forEach(function (val) {
                 if(val.pic){
                     atr+=`<div class="xinwen">
