@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>搜索</title>
+	<script src='js/rem.js'></script>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/base1.css">
+	<script src="../jquery/jquery.min.js"></script>
+</head>
+<body>
+	<div class="nav">
+	    搜索
+        <a href="toutiao.html"><div class="fanhui iconfont">&#xe61d;</div></a>
+	</div>
+	<div class="inputk">
+       <input type="text" placeholder="请输入搜索关键词" class='input'>
+       <div class="logo">
+         <img src="img/1.png" alt="">
+       </div>
+	</div>
+	<ul class="liebiao">
+       <li class="meige">
+          <div class="meigek">
+             <div class="leftk">的市场上的</div>
+             <div class="rightk">是dvd是vf斯蒂芬</div>
+          </div>
+       </li>
+       <li class="meige">
+          <div class="meigek">
+             <div class="leftk">难度几块十几块的女</div>
+             <div class="rightk">啊进出口vnkjnfew；了</div>
+          </div>
+       </li>
+       <li class="meige">
+          <div class="meigek">
+             <div class="leftk">曲飞飞vs水水十多年</div>
+             <div class="rightk">是色粉红肥企鹅全额借款</div>
+          </div>
+       </li>
+       <li class="meige">
+          <div class="meigek">
+            <div class="leftk">都是几十年</div>
+             <div class="rightk">啊佛恶法呢</div> 
+          </div>
+       </li>
+       <li class="meige">
+          <div class="meigek">
+            <div class="leftk">额额我很符合我</div>
+             <div class="rightk">是覅不健康健康你在查</div> 
+          </div>
+       </li>
+	</ul>
+</body>
+<script>
+function sousuo(input) {
+        let val=input.val();
+        $.ajax({
+            url:'https://api.jisuapi.com/news/search?keyword='+val+'&appkey=d45334315bc4579b',
+            dataType:'jsonp',
+            success:function (s) {
+                let arr=s.result.list;
+                let atr='';
+                arr.forEach(function (val) {
+                if(val.pic){
+                    atr+=`<div class="xinwen">
+                             <div class="xinwenimg">
+                                 <img src="${val.pic}" alt="">
+                              </div>
+                             <div class="xinwentitle">${val.title}</div>
+                             <div class="xiaoxi">
+                             <div class="time">时间：${val.time}</div>
+                             <div class="laiyuan">来源：${val.src}</div>
+                             </div>
+                         </div>`;
+                }
+                else{
+                    atr+=` <div class="xinwen1">
+                              <div class="xintitle">${val.title}
+                              <div class="xiaoxi">
+                              <div class="time">时间：${val.time}</div>
+                              <div class="laiyuan">来源：${val.src}</div>
+                              </div></div>
+                              </div>`;
+                }
+                });
+                $('.liebiao').html(function (index,html) {
+                   return atr+html;
+                });
+            }
+        })
+    }
+    $(window).keydown(function(e){
+        let current=e.keyCode;
+        if(current==13){
+        	sousuo($('.input'));
+        	$('.input').val('');
+        }
+    })
+</script>
+</html>

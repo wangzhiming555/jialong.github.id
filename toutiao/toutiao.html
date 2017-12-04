@@ -9,7 +9,7 @@
     <!-- <link rel="stylesheet" href="css"> -->
     <script src='js/rem.js'></script>
     <link rel="stylesheet" href="css/base.css">
-    <script src='js/jquery.min.js'></script>
+    <script src='../jquery/jquery.min.js'></script>
     <script src='js/iscroll.js'></script>
     <script type="text/javascript" src="js/demoUtils.js"></script>
     <script>
@@ -27,9 +27,14 @@
 </head>
 <body onload="loaded()">
     <div class="nav">
-        <div class="sousuo">
-            <input type="text" class="input" placeholder="搜索">
-            <span>搜索</span>
+        <!--<div class="sousuo">-->
+            <!--<input type="text" class="input" placeholder="搜索">-->
+            <!--<span>搜索</span>-->
+        <!--</div>-->
+        <div class="navs">
+            <div class="email iconfonts">&#xe613;</div>
+            <div class="jinri iconfonts">今日头条 <a href="">&#xe68d;</a></div>
+            <a href="sousuo.html"><div class="sousuo iconfonts">&#xe615;</div></a>
         </div>
     </div>
     <div class="kuangs"> 
@@ -85,14 +90,14 @@
         let start=obj.start;
         let num=obj.num;
         let pindao=obj.pindao;
-        // console.log(pindao.text());
+        console.log(pindao.text());
         $.ajax({
             url:'https://api.jisuapi.com/news/get?channel='+pindao.text()+'&start='+start+'&num='+num+'&appkey=d45334315bc4579b',
             dataType:'jsonp',
             success:function (a) {
                 let atr='';
                 let arr=a.result.list;
-                // console.log(arr);
+                console.log(arr);
                 arr.forEach(function (val) {
                     if(val.pic){
                         atr+=`<a href="${val.weburl}">
@@ -145,56 +150,18 @@
             num:nums,
             pindao:$('.active')
         })
-        // console.log($(this));
+        console.log($(this));
     })
-    function sousuo(input) {
-        let val=input.val();
-        console.log(val);
-        $.ajax({
-            url:'https://api.jisuapi.com/news/search?keyword='+val+'&appkey=d45334315bc4579b',
-            dataType:'jsonp',
-            success:function (s) {
-                let arr=s.result.list;
-                let atr='';
-                // console.log(arr);
-                arr.forEach(function (val) {
-                if(val.pic){
-                    atr+=`<div class="xinwen">
-                             <div class="xinwenimg">
-                                 <img src="${val.pic}" alt="">
-                              </div>
-                             <div class="xinwentitle">${val.title}</div>
-                             <div class="xiaoxi">
-                             <div class="time">时间：${val.time}</div>
-                             <div class="laiyuan">来源：${val.src}</div>
-                             </div>
-                         </div>`;
-                }
-                else{
-                    atr+=` <div class="xinwen1">
-                              <div class="xintitle">${val.title}
-                              <div class="xiaoxi">
-                              <div class="time">时间：${val.time}</div>
-                              <div class="laiyuan">来源：${val.src}</div>
-                              </div></div>
-                              </div>`;
-                }
-                });
-                $('.xinwens').html(function (index,html) {
-                   return atr+html;
-                });
-            }
-        })
-    }
-    $(window).keydown(function (e) {
-        if(e.keyCode==13){
-            sousuo($('.input'));
-            $('.input').html('');
-        }
-    })
-    $('span').click(function () {
-        sousuo($('.input'));
-        $('.input').html('');
-    })
+    
+//    $(window).keydown(function (e) {
+//        if(e.keyCode==13){
+//            sousuo($('.input'));
+//            $('.input').val('');
+//        }
+//    })
+//    $('span').click(function () {
+//        sousuo($('.input'));
+//        $('.input').val('');
+//    })
 </script>
 </html>
