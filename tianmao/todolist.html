@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todolist</title>
+    <link rel="stylesheet" href="base.css">
+</head>
+<body>
+<div class="nav">
+    <section>
+        <div class="todo">ToDoList</div>
+        <input type="text" placeholder="添加ToDo">
+    </section>
+</div>
+<div class="box">
+    <h2 class="h22">正在进行 <span class='span1'>0</span></h2>
+    <div class="box1">
+    <!--<ul class='ul'>-->
+        <!--<li class='li'>-->
+            <!--<input type="checkbox" class='radio'>-->
+            <!--<p class='title'>1111</p>-->
+            <!--<div class="delete">-->
+                <!--<div class="del"></div>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
+    </div>
+    <h2 class='h2'>已经完成 <span class='span2'>0</span></h2>
+    <div class="box2"></div>
+    <div class="before"></div>
+</div>
+<footer>Copyright © 2014 todolist.cn clear</footer>
+</body>
+<script>
+let input=document.querySelector('section input');
+let box1=document.querySelector('.box1');
+let box2=document.querySelector('.box2');
+box2.classList.add('zhezhao');
+let str='';
+let num=0,num1=0;
+let span1=document.querySelector('.span1');
+let span2=document.querySelector('.span2');
+//let datebase=[];
+//localStorage.date=JSON.stringify(datebase);
+let dates=JSON.parse(localStorage.date);
+let ids=-1;
+input.onchange=function () {
+    window.onkeydown= (e)=> {
+        let val=this.value;
+        let current=e.keyCode;
+        if(current==13&&this.value!=''){
+            num++;
+            ids++;
+            span1.innerHTML=num;
+            str+=`<ul class="ul" id=${ids}><li class="li"> `;
+            str+=`<input type="checkbox" class='radio'>
+            <p class='title'>${val}</p>
+            <div class="delete">
+                <div class="del"></div>
+            </div>`;
+            str+=`</li></ul>`;
+            box1.innerHTML=str;
+            dates.push({id:ids,title:val,flag:true});
+            localStorage.date=JSON.stringify(dates);
+            this.value='';
+            this.blur();
+//            val='';
+        }
+    }
+}
+let fag;
+dates.forEach((val,index)=> {
+    let idds=-1;
+    idds++;
+    str=`<ul class="ul" flag="true" id=${idds}><li class="li"> `;
+    str+=`<input type="checkbox" class='radio'>
+            <p class='title'>${val.title}</p>
+            <div class="delete">
+                <div class="del"></div>
+            </div>`;
+    str+=`</li></ul>`;
+    fag=dates[index].flag;
+    if(fag=="true"){
+        num++;
+        span1.innerHTML=num;
+        box1.innerHTML+=str;
+    }
+    if(fag=="false"){
+        num1++;
+        span2.innerHTML=num1;
+        box2.innerHTML+=str;
+    }
+    localStorage.date=JSON.stringify(dates);
+})
+
+let radio=document.querySelector('.radio');
+let box=document.querySelector('.box');
+box.onclick=function (e) {
+    let current=e.target;
+    if(current.classList.contains('radio')){
+        let par=current.parentNode.parentNode;
+        let flag=par.getAttribute('flag')
+//        console.log(flag);
+        if(flag=="true"){
+            box2.appendChild(par);
+//            par.classList.add('zhezhao');
+            par.setAttribute("flag","false");
+            let id=par.id;
+            let indexs=dates.findIndex(function (val,ind) {
+                if(val.id==id){
+                    return ind;
+                }
+            });
+//            fag=dates[indexs].flag;
+//            console.log(dates[indexs][flag]);
+            dates[indexs].flag=false;
+            fag="false";
+//            console.log(dates[indexs].flag);
+            localStorage.date=JSON.stringify(dates);
+        }
+        if(flag=="false"){
+            box1.appendChild(par);
+            par.classList.remove('zhezhao');
+            par.setAttribute("flag","true");
+            let id=par.id;
+            let indexs=dates.findIndex(function (val,ind) {
+                if(val.id==id){
+                    return ind;
+                }
+            });
+//            fag=dates[indexs].flag;
+            dates[indexs].flag=true;
+            fag="true";
+            localStorage.date=JSON.stringify(dates);
+        }
+    }
+    if(current.classList.contains('del')){
+        let par=current.parentNode.parentNode.parentNode;
+        let id=par.id;
+        let index=dates.findIndex(function (val,ind) {
+            if(val.id==id){
+                return ind;
+            }
+        })
+        dates.splice(index,1);
+        localStorage.date=JSON.stringify(dates);
+        if(fag=="true"){
+            num--;
+            span1.innerHTML=num;
+            box1.removeChild(par);
+        }
+        else if(fag=="false"){
+            num1--;
+            span2.innerHTML=num1;
+            box2.removeChild(par);
+        }
+    }
+    if(current.classList.contains('title')){
+        let input=document.createElement('input');
+        let val=current.innerHTML;
+        input.value=val;
+        current.innerHTML='';
+        current.appendChild(input);
+        input.focus();
+        input.onblur=function () {
+            let vas=input.value;
+            let clas=current.getAttribute('class');
+//            console.log(clas);
+            let pas=this.parentNode.parentNode;
+            let id=pas.id;
+            let index=dates.findIndex(function (val,ind) {
+                if(val.id==id){
+                    return ind;
+                }
+            })
+            dates[index][clas]=vas;
+            localStorage.date=JSON.stringify(dates);
+            current.innerHTML=vas;
+        }
+    }
+}
+</script>
+</html>

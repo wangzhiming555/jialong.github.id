@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="css"> -->
+    <script src='js/rem.js'></script>
+    <link rel="stylesheet" href="css/base.css">
+    <script src='../jquery/jquery.min.js'></script>
+    <script src='js/iscroll.js'></script>
+    <script type="text/javascript" src="js/demoUtils.js"></script>
+    <script>
+        var myScroll;
+
+        function loaded () {
+            myScroll = new IScroll('.kuang', { scrollX: true, scrollY: false, mouseWheel: true });
+        }
+
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+            capture: false,
+            passive: false
+        } : false);
+    </script>
+</head>
+<body onload="loaded()">
+    <div class="nav">
+        <div class="sousuo">
+            <input type="text" class="input" placeholder="搜索">
+            <span>搜索</span>
+        </div>
+    </div>
+    <div class="kuangs"> 
+    <div class="kuang">
+       <ul class="fenlei">
+       	<li class="meige">
+        </li>
+       	<li class="meige">2</li>
+       	<li class="meige">3</li>
+       	<li class="meige">4</li>
+       	<li class="meige">5</li>
+       	<li class="meige">6</li>
+       	<li class="meige">7</li>
+       	<li class="meige">8</li>
+       	<li class="meige">9</li>
+       	<li class="meige">10</li>
+       	<li class="meige">11</li>
+       	<li class="meige">12</li>
+       	<li class="meige">13</li>
+       	<li class="meige">14</li>
+       	<li class="meige">15</li>
+       </ul>
+       <div class="morebtn">+</div>
+    </div>
+    </div>
+    <div class="xinwens">
+    <div class="xinwen">
+        <div class="xinwenimg">
+            <img src="img/6.jpg" alt="">
+        </div>
+        <div class="xinwentitle">疯狂带领你快乐的</div>
+    </div>
+        <a href="#"><div class="jiazai" id="jiazai">加载更多</div></a>
+    </div>
+</body>
+<script>
+    $.ajax({
+        url:'http://api.jisuapi.com/news/channel?appkey=d45334315bc4579b',
+        dataType:'jsonp',
+        success:function (e) {
+            let str='';
+            let arr=e.result;
+            console.log(arr);
+            arr.forEach(function (val) {
+                str+=`<li class="meige">${val}</li>`;
+
+            })
+            $('.fenlei').html(str);
+            $('.meige').first().addClass('active');
+        }
+    });
+    function reader(obj) {
+        let start=obj.start;
+        let num=obj.num;
+        let pindao=obj.pindao;
+        console.log(pindao.text());
+        $.ajax({
+            url:'http://api.jisuapi.com/news/get?channel='+pindao.text()+'&start='+start+'&num='+num+'&appkey=d45334315bc4579b',
+            dataType:'jsonp',
+            success:function (a) {
+                let atr='';
+                let arr=a.result.list;
+                console.log(arr);
+                arr.forEach(function (val) {
+                    if(val.pic){
+                        atr+=`<a href="${val.weburl}">
+                               <div class="xinwen">
+                               <div class="xinwenimg">
+                                 <img src="${val.pic}" alt="">
+                               </div>
+                               <div class="xinwentitle">${val.title}</div>
+                               <div class="xiaoxi">
+                               <div class="time">时间：${val.time}</div>
+                               <div class="laiyuan">来源：${val.src}</div>
+                               </div>
+                               </div></a>`;
+                    }
+                    else{
+                        atr+=`<a href="${val.weburl}">
+                              <div class="xinwen1">
+                              <div class="xintitle">${val.title}
+                              <div class="xiaoxi">
+                              <div class="time">时间：${val.time}</div>
+                              <div class="laiyuan">来源：${val.src}</div>
+                              </div></div>
+                              </div></a>`;
+                    }
+                })
+                $('.xinwens').html(function (index,val) {
+                    return atr+val;
+                });
+            }
+        })
+    }
+    reader({
+        start:0,
+        num:10,
+        pindao:$('li.active')
+    })
+    $('.fenlei').on('click','.meige',function () {
+        $(this).addClass('active').siblings().removeClass('active');
+        reader({
+            start:0,
+            num:10,
+            pindao:$('.active')
+        })
+    })
+    nums=10;
+    $('body').on('click','#jiazai',function () {
+        nums+=10;
+        reader({
+            start:0,
+            num:nums,
+            pindao:$('.active')
+        })
+        console.log($(this));
+    })
+    function sousuo(input) {
+        let val=input.val();
+        console.log(val);
+        $.ajax({
+            url:'http://api.jisuapi.com/news/search?keyword='+val+'&appkey=d45334315bc4579b',
+            dataType:'jsonp',
+            success:function (s) {
+                let arr=s.result.list;
+                let atr='';
+                console.log(arr);
+                arr.forEach(function (val) {
+                if(val.pic){
+                    atr+=`<div class="xinwen">
+                             <div class="xinwenimg">
+                                 <img src="${val.pic}" alt="">
+                              </div>
+                             <div class="xinwentitle">${val.title}</div>
+                             <div class="xiaoxi">
+                             <div class="time">时间：${val.time}</div>
+                             <div class="laiyuan">来源：${val.src}</div>
+                             </div>
+                         </div>`;
+                }
+                else{
+                    atr+=` <div class="xinwen1">
+                              <div class="xintitle">${val.title}
+                              <div class="xiaoxi">
+                              <div class="time">时间：${val.time}</div>
+                              <div class="laiyuan">来源：${val.src}</div>
+                              </div></div>
+                              </div>`;
+                }
+                });
+                $('.xinwens').html(function (index,html) {
+                   return atr+html;
+                });
+            }
+        })
+    }
+    $(window).keydown(function (e) {
+        if(e.keyCode==13){
+            sousuo($('.input'));
+            $('.input').html('');
+        }
+    })
+    $('span').click(function () {
+        sousuo($('.input'));
+        $('.input').html('');
+    })
+</script>
+</html>
