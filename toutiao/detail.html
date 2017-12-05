@@ -6,21 +6,49 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="js/rem.js"></script>
     <script src='../jquery/jquery.min.js'></script>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/base1.css">
+    <style>
+        .border{
+            width:100%;
+            height:auto;
+        }
+        .nav{
+            height: 0.8rem;
+        }
+        body{
+            width: 100%;
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 <body>
-
+    <div class="nav">
+        详情页
+        <div class="fanhui iconfont">&#xe61d;</div>
+    </div>
+    <div class="border"></div>
 </body>
 <script>
     $.ajax({
         url:'http://api.jisuapi.com/news/get?channel='+localStorage.channel+'&start='+localStorage.index+'&num='+1+'&appkey=d45334315bc4579b',
         dataType:'jsonp',
         success:function (e) {
-            let arr=e.result.list[0];
-            console.log(arr);
-            let str=arr.content;
-            $('body').html(str);
+//            return;
+            if(e.result.list){
+                let arr=e.result.list[0];
+                let str=arr.content;
+                $('.border').html(str);
+            }
+            else{
+                $('.border').html(localStorage.htmls);
+            }
         },
+    })
+    $('.fanhui').click(function () {
+        history.back();
     })
 </script>
 </html>

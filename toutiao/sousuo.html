@@ -60,36 +60,6 @@
        </div>
 	</div>
 	<ul class="liebiao">
-       <!--<li class="meige">-->
-          <!--<div class="meigek">-->
-             <!--<div class="leftk">的市场上的</div>-->
-             <!--<div class="rightk">是dvd是vf斯蒂芬</div>-->
-          <!--</div>-->
-       <!--</li>-->
-       <!--<li class="meige">-->
-          <!--<div class="meigek">-->
-             <!--<div class="leftk">难度几块十几块的女</div>-->
-             <!--<div class="rightk">啊进出口vnkjnfew；了</div>-->
-          <!--</div>-->
-       <!--</li>-->
-       <!--<li class="meige">-->
-          <!--<div class="meigek">-->
-             <!--<div class="leftk">曲飞飞vs水水十多年</div>-->
-             <!--<div class="rightk">是色粉红肥企鹅全额借款</div>-->
-          <!--</div>-->
-       <!--</li>-->
-       <!--<li class="meige">-->
-          <!--<div class="meigek">-->
-            <!--<div class="leftk">都是几十年</div>-->
-             <!--<div class="rightk">啊佛恶法呢</div> -->
-          <!--</div>-->
-       <!--</li>-->
-       <!--<li class="meige">-->
-          <!--<div class="meigek">-->
-            <!--<div class="leftk">额额我很符合我</div>-->
-             <!--<div class="rightk">是覅不健康健康你在查</div> -->
-          <!--</div>-->
-       <!--</li>-->
 	</ul>
 <div class="loading">
     <img src="img/1.gif" alt="">
@@ -98,6 +68,7 @@
 <script>
     let search='';
     let arr;
+    let arrs;
     function reset() {
         if(localStorage.history){
             search=localStorage.history;
@@ -130,9 +101,9 @@ function sousuo(val) {
             },
             success:function (s) {
                 $('.loading').css('display','none');
-                let arr=s.result.list;
+                arrs=s.result.list;
                 let atr='';
-                arr.forEach(function (val) {
+                arrs.forEach(function (val) {
                 if(val.pic){
                     atr+=`<div class="xinwen">
                              <div class="xinwenimg">
@@ -180,11 +151,12 @@ function sousuo(val) {
     $('.fanhui').click(function () {
         history.back();
     })
-    $('.liebiao').on('click','.xinwen',function () {
+    $('.liebiao').on('click','.xinwen',function (e) {
         let index=$(this).index();
         let channel=arr[arr.length-2];
         localStorage.index=index;
         localStorage.channel=channel;
+        localStorage.htmls=arrs[index].content;
         location.href='detail.html';
     })
 </script>
