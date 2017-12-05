@@ -7,58 +7,129 @@
 	<link rel="stylesheet" href="css/base.css">
 	<link rel="stylesheet" href="css/base1.css">
 	<script src="../jquery/jquery.min.js"></script>
+    <style>
+        .loading{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left:0;
+            top: 1.62rem;
+            background: rgba(0,0,0,0.7);
+            display: none;
+        }
+        .loading img{
+            width: 100%;
+            height: 8rem;
+            position: absolute;
+            left:0;
+            top:0.5rem;
+        }
+        .jilv{
+            width: 100%;
+            height:auto;
+            background: #fff;
+            position: absolute;
+            left:0;
+            top:0.74rem;
+            overflow: hidden;
+        }
+        .span{
+            width: 80%;
+            height: 0.5rem;
+            margin: 0 10%;
+            font-size: 30px;
+            text-align: left;
+            line-height: 0.5rem;
+            color: #333;
+            display: block;
+        }
+    </style>
 </head>
 <body>
 	<div class="nav">
 	    搜索
-        <a href="toutiao.html"><div class="fanhui iconfont">&#xe61d;</div></a>
+        <div class="fanhui iconfont">&#xe61d;</div>
 	</div>
 	<div class="inputk">
        <input type="text" placeholder="请输入搜索关键词" class='input'>
+        <div class="jilv">
+
+        </div>
        <div class="logo">
          <img src="img/1.png" alt="">
        </div>
 	</div>
 	<ul class="liebiao">
-       <li class="meige">
-          <div class="meigek">
-             <div class="leftk">的市场上的</div>
-             <div class="rightk">是dvd是vf斯蒂芬</div>
-          </div>
-       </li>
-       <li class="meige">
-          <div class="meigek">
-             <div class="leftk">难度几块十几块的女</div>
-             <div class="rightk">啊进出口vnkjnfew；了</div>
-          </div>
-       </li>
-       <li class="meige">
-          <div class="meigek">
-             <div class="leftk">曲飞飞vs水水十多年</div>
-             <div class="rightk">是色粉红肥企鹅全额借款</div>
-          </div>
-       </li>
-       <li class="meige">
-          <div class="meigek">
-            <div class="leftk">都是几十年</div>
-             <div class="rightk">啊佛恶法呢</div> 
-          </div>
-       </li>
-       <li class="meige">
-          <div class="meigek">
-            <div class="leftk">额额我很符合我</div>
-             <div class="rightk">是覅不健康健康你在查</div> 
-          </div>
-       </li>
+       <!--<li class="meige">-->
+          <!--<div class="meigek">-->
+             <!--<div class="leftk">的市场上的</div>-->
+             <!--<div class="rightk">是dvd是vf斯蒂芬</div>-->
+          <!--</div>-->
+       <!--</li>-->
+       <!--<li class="meige">-->
+          <!--<div class="meigek">-->
+             <!--<div class="leftk">难度几块十几块的女</div>-->
+             <!--<div class="rightk">啊进出口vnkjnfew；了</div>-->
+          <!--</div>-->
+       <!--</li>-->
+       <!--<li class="meige">-->
+          <!--<div class="meigek">-->
+             <!--<div class="leftk">曲飞飞vs水水十多年</div>-->
+             <!--<div class="rightk">是色粉红肥企鹅全额借款</div>-->
+          <!--</div>-->
+       <!--</li>-->
+       <!--<li class="meige">-->
+          <!--<div class="meigek">-->
+            <!--<div class="leftk">都是几十年</div>-->
+             <!--<div class="rightk">啊佛恶法呢</div> -->
+          <!--</div>-->
+       <!--</li>-->
+       <!--<li class="meige">-->
+          <!--<div class="meigek">-->
+            <!--<div class="leftk">额额我很符合我</div>-->
+             <!--<div class="rightk">是覅不健康健康你在查</div> -->
+          <!--</div>-->
+       <!--</li>-->
 	</ul>
+<div class="loading">
+    <img src="img/1.gif" alt="">
+</div>
 </body>
 <script>
-function sousuo(input) {
-        let val=input.val();
+    let search='';
+    let arr;
+    function reset() {
+        if(localStorage.history){
+            search=localStorage.history;
+            let str='';
+                arr=search.split(',');
+                arr=arr.slice(-6);
+                arr.forEach(val=>{
+                    str+=`<span class="span">${val}</span>`;
+                })
+                $('.jilv').html(str);
+        }
+    }
+    reset();
+    $('.input').focus();
+    $('.input').focus(function () {
+        reset();
+        $('.jilv').show();
+    })
+    $('.span').click(function () {
+        let val=$(this).text();
+        sousuo(val);
+        $('.jilv').hide();
+    })
+function sousuo(val) {
         $.ajax({
             url:'https://api.jisuapi.com/news/search?keyword='+val+'&appkey=d45334315bc4579b',
             dataType:'jsonp',
+            beforeSend:function () {
+                $('.loading').css('display','block');
+            },
             success:function (s) {
+                $('.loading').css('display','none');
                 let arr=s.result.list;
                 let atr='';
                 arr.forEach(function (val) {
@@ -93,9 +164,28 @@ function sousuo(input) {
     $(window).keydown(function(e){
         let current=e.keyCode;
         if(current==13){
-        	sousuo($('.input'));
+            $('.jilv').hide().prev().blur();
+            let val=$('.input').val();
+            if(val==''){
+                return;
+            }
+            if(!arr.includes(val)){
+                search+=`${val},`;
+            }
+            localStorage.history=search;
+        	sousuo(val);
         	$('.input').val('');
         }
+    })
+    $('.fanhui').click(function () {
+        history.back();
+    })
+    $('.liebiao').on('click','.xinwen',function () {
+        let index=$(this).index();
+        let channel=arr[arr.length-2];
+        localStorage.index=index;
+        localStorage.channel=channel;
+        location.href='detail.html';
     })
 </script>
 </html>
