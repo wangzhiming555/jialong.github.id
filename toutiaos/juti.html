@@ -31,7 +31,7 @@
 </body>
 <script>
     $.ajax({
-            url:'http://api.jisuapi.com/news/get?channel='+localStorage.channel+'&start='+localStorage.index+'&num=1&appkey=d45334315bc4579b',
+            url:'https://api.jisuapi.com/news/get?channel='+localStorage.channel+'&start='+localStorage.index+'&num=1&appkey=d45334315bc4579b',
             dataType:'jsonp',
             success:function (e) {
                 if(e.result.list){

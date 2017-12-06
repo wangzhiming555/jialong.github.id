@@ -49,7 +49,7 @@
     function reader(obj) {
         let channel=obj.channel;
         $.ajax({
-            url:'http://api.jisuapi.com/news/search?keyword='+channel+'&appkey=d45334315bc4579b',
+            url:'https://api.jisuapi.com/news/search?keyword='+channel+'&appkey=d45334315bc4579b',
             dataType:'jsonp',
             beforeSend:function () {
                 $('.zhezhao').show();
