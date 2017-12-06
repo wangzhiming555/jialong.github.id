@@ -6,6 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/sou.css">
     <script src="js/rem.js"></script>
     <script src="js/jquery.min.js"></script>
     <style>
@@ -19,6 +21,12 @@
     </style>
 </head>
 <body>
+<div class="nav">
+    <div class="sou">
+    详情内容
+    <div class="fanhui"><</div>
+    </div>
+</div>
 <div class="body"></div>
 </body>
 <script>
@@ -29,12 +37,13 @@
                 if(e.result.list){
                   $('.body').html(e.result.list[0].content);
                 }else{
-                    $('.body').html(localStorage.juti);
+                    $('.body').html(localStorage.jutis);
                 }
             }
     })
-
-
+    $('.fanhui').click(function () {
+        history.back();
+    })
 
 </script>
 </html>

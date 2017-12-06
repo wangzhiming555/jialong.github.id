@@ -14,6 +14,7 @@
 <body>
     <div class="nav">
         <div class="sou">
+            <div class="fanhui"><</div>
             <input type="text" class="input" placeholder="请输入搜索内容">
             <div class="jilv">
                 <!--<span>1</span><span>2</span><span>3</span>-->
@@ -133,12 +134,18 @@
     })
     $('.box').on('click','.liebiao',function () {
         $('.zhezhao').show();
-        setTimeout(function () {
+        setTimeout(()=> {
             $('.zhezhao').hide();
-            localStorage.juti=arr[0].content;
+            let index=$(this).index();
+            let channel=arr1[arr1.length-2];
+            localStorage.index=index;
+            localStorage.channel=channel;
+            localStorage.jutis=arr[0].content;
             location.href='juti.html';
         },200);
-
+    })
+    $('.fanhui').click(function () {
+        history.back();
     })
 </script>
 </html>

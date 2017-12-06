@@ -4,11 +4,11 @@
 	text-decoration: none;
 }
 .sou{
-	width: 90%;
+	width: 95%;
 	height: 100%;
-	margin: 0 auto;
 	color: #fff;
 	position: relative;
+	left: 5%;top: 0;
 }
 .input{
 	width: 70%;
@@ -53,4 +53,14 @@
 	width: 90%;
 	height: auto;
 	padding: 0 5%;
+}
+.fanhui{
+	width: 10%;
+	float: left;
+	height: 100%;
+	font-size: 25px;
+	color: #fff;
+	text-align: center;
+	line-height: 0.8rem;
+	margin-left: -5%;
 }
