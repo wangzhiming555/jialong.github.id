@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/rem.js"></script>
+    <link rel="stylesheet" href="css/base.css">
+    <style>
+        .active{
+            color: red;
+        }
+    </style>
+    <script src="js/iscroll.js"></script>
+    <script src="js/demoUtils.js"></script>
+    <script type="text/javascript">
+
+        var myScroll;
+
+        function loaded () {
+            myScroll = new IScroll('.pindaok', { scrollX: true, scrollY: false, mouseWheel: true });
+        }
+
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+            capture: false,
+            passive: false
+        } : false);
+
+    </script>
+</head>
+<body onload="loaded()">
+    <div class="nav">
+        每日新闻
+        <div class="sousuo iconfont">&#xe615;</div>
+    </div>
+    <div class="pindaok">
+        <div class="pindaos">
+            <ul>
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+                <!--<li class="pindao">1</li>-->
+            </ul>
+        </div>
+    </div>
+    <div class="liebiaos">
+    <!--<div class="liebiao">-->
+        <!--<div class="left">-->
+            <!--<img src="" alt="">-->
+        <!--</div>-->
+        <!--<div class="right"><p>sdvfdvfdvdfv</p></div>-->
+        <!--<div class="xiaoxi">-->
+            <!--<div class="src">sdf</div>-->
+            <!--<div class="time">13</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="liebiao">-->
+        <!--<div class="title"></div>-->
+        <!--<div class="xiaoxi">-->
+            <!--<div class="src"></div>-->
+            <!--<doiv class="time"></doiv>-->
+        <!--</div>-->
+    <!--</div>-->
+    </div>
+    <div class="jiazai">加载更多</div>
+    <div class="zhezhao">
+        <img src="img/1.gif" alt="">
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+    $.ajax({
+        url:'http://api.jisuapi.com/news/channel?appkey=d45334315bc4579b',
+        dataType:'jsonp',
+        success:function (e) {
+            let arr=e.result;
+            let str='';
+            arr.forEach(function (val) {
+                str+=`<li class="pindao">${val}</li>`;
+            })
+            $('.pindaos ul').html(str);
+            $('.pindao').first().addClass('active');
+        }
+    })
+    let arr1;
+    function reader(obj) {
+        let start=obj.start||0;
+        let num=obj.num||10;
+        let channel=obj.channel||$('.active');
+        $.ajax({
+            url:'https://api.jisuapi.com/news/get?channel='+channel.text()+'&start='+start+'&num='+num+'&appkey=d45334315bc4579b',
+            dataType:'jsonp',
+            beforeSend:function () {
+                $('.zhezhao').show();
+            },
+            success:function (e) {
+                $('.zhezhao').hide();
+                arr1=e.result;
+                let str='';
+                let arr=e.result.list;
+                arr.forEach(function (val) {
+                    if(val.pic){
+                        str+=`<div class="liebiao">
+                               <div class="left">
+                                  <img src="${val.pic}" alt="">
+                               </div>
+                               <div class="right"><p>${val.title}</p></div>
+                               <div class="xiaoxi">
+                                  <div class="src">${val.src}</div>
+                                  <div class="time">${val.time}</div>
+                               </div>
+                              </div>`;
+                    }
+                    else{
+                        str+=`<div class="liebiao">
+                              <div class="title">${val.title}</div>
+                              <div class="xiaoxi">
+                                 <div class="src">${val.src}</div>
+                                 <div class="time">${val.time}</div>
+                              </div>
+                              </div>`;
+                    }
+                })
+                $('.liebiaos').html(function (ind,html){
+                    return html+str;
+                });
+            }
+        })
+
+    }
+    reader({
+        start:0,
+        num:10,
+        channel:$('.active'),
+    })
+    let nums=10;
+    $('.jiazai').click(function () {
+        nums+=10;
+        $('.liebiaos').html('');
+        reader({
+            start:0,
+            num:nums,
+            channel:$('.active'),
+        })
+    })
+    $('.pindaos').on('click','.pindao',function () {
+        $(this).addClass('active').siblings().removeClass('active');
+        $('.liebiaos').html('');
+        reader({
+            start:0,
+            num:10,
+            channel:$('.active')
+        })
+    })
+    $('.sousuo').click(function () {
+        $('.zhezhao').show();
+        setTimeout(function () {
+            $('.zhezhao').hide();
+            location.href='sou.html';
+        },100)
+    })
+    $('.liebiaos').on('click','.liebiao',function () {
+        $('.zhezhao').show();
+        setTimeout(function () {
+            $('.zhezhao').hide();
+            let index=$(this).index();
+            let channel=$('.active').text();
+            console.log(index,channel);
+            localStorage.index=index;
+            localStorage.channel=channel;
+            location.href='juti.html';
+        },200)
+
+    })
+</script>
+</html>

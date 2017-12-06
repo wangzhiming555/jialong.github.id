@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/sou.css">
+    <script src="js/rem.js"></script>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="nav">
+        <div class="sou">
+            <input type="text" class="input" placeholder="请输入搜索内容">
+            <div class="jilv">
+                <!--<span>1</span><span>2</span><span>3</span>-->
+            </div>
+            <div class="suo">搜索</div>
+        </div>
+    </div>
+    <div class="box">
+
+    </div>
+    <div class="jiazai">加载更多</div>
+    <div class="zhezhao">
+        <img src="img/1.gif" alt="">
+    </div>
+</body>
+<script>
+    let arr1=[];
+    let str1='';
+    let arr;
+    function span() {
+        if(localStorage.history){
+            str1=localStorage.history;
+            arr1=str1.split(',');
+            let str2='';
+            arr1.forEach(function (val) {
+                str2+=`<span>${val}</span>`;
+            })
+            $('.jilv').html(str2);
+        }
+    }
+    span();
+    function reader(obj) {
+        let channel=obj.channel;
+        $.ajax({
+            url:'http://api.jisuapi.com/news/search?keyword='+channel+'&appkey=d45334315bc4579b',
+            dataType:'jsonp',
+            beforeSend:function () {
+                $('.zhezhao').show();
+            },
+            success:function (e) {
+                $('.zhezhao').hide();
+                let str='';
+                arr=e.result.list;
+                arr.forEach(function (val) {
+                    if(val.pic){
+                        str+=`<div class="liebiao">
+                               <div class="left">
+                                  <img src="${val.pic}" alt="">
+                               </div>
+                               <div class="right"><p>${val.title}</p></div>
+                               <div class="xiaoxi">
+                                  <div class="src">${val.src}</div>
+                                  <div class="time">${val.time}</div>
+                               </div>
+                              </div>`;
+                    }
+                    else{
+                        str+=`<div class="liebiao">
+                              <div class="title">${val.title}</div>
+                              <div class="xiaoxi">
+                                 <div class="src">${val.src}</div>
+                                 <div class="time">${val.time}</div>
+                              </div>
+                              </div>`;
+                    }
+                })
+                $('.box').html(str);
+            }
+        })
+    }
+    $(window).load(function () {
+        $('.input').focus();
+    })
+    $('.suo').click(function () {
+        let val=$('.input').val();
+        $('.box').html('');
+        if(val!=''){
+            reader({
+                channel:val,
+            })
+            if(arr1.includes(val)){
+                return;
+            }
+            str1+=val+'';
+            localStorage.history=str1;
+            span();
+        }
+        $('.jilv').hide();
+    })
+    $('.input').focus(function () {
+        $('.jilv').show();
+    })
+    $(window).keydown(function (e) {
+        if(e.which==13){
+            let val=$('.input').val();
+            $('.jilv').hide();
+            $('.input').blur().val('');
+            if(val!=''){
+                reader({
+                    channel:val,
+                })
+                if(arr1.includes(val)){
+                    return;
+                }
+                str1+=val+',';
+                localStorage.history=str1;
+                span();
+            }
+        }
+    })
+    $('.jilv span').click(function () {
+        let text=$(this).text();
+        reader({
+            channel:text,
+        })
+        $('.jilv').hide();
+    })
+    $('.box').on('click','.liebiao',function () {
+        $('.zhezhao').show();
+        setTimeout(function () {
+            $('.zhezhao').hide();
+            localStorage.juti=arr[0].content;
+            location.href='juti.html';
+        },200);
+
+    })
+</script>
+</html>
