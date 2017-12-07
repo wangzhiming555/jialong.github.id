@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>fullPage.js — 绑定菜单演示_dowebok</title>
+<link rel="stylesheet" href="css/swiper.min.css">
+<link rel="stylesheet" href="css/jquery.fullPage.css">
+<link rel="stylesheet" href="css/base.css">
+<style>
+#menu { margin: 0; padding: 0; position: fixed; left: 10px; top: 10px; list-style-type: none; z-index: 70;}
+#menu li { float: left; margin:  0 10px 0 0; font-size: 14px;}
+#menu a { float: left; padding: 10px 20px; background-color: #fff; color: #333; text-decoration: none;}
+#menu .active a { color: #fff; background-color: #333;}
+.section { text-align: center; font: 50px "Microsoft Yahei"; color: #fff;}
+#page1{
+	background: red;
+}
+</style>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery.fullPage.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script>
+$(function(){
+	$('#dowebok').fullpage({
+		// sectionsColor: ['#1bbc9b', '#4BBFC3', '#7BAABE', '#f90'],
+		anchors: ['page1', 'page2', 'page3', 'page4'],
+		menu: '#menu'
+	});
+});
+</script>
+</head>
+
+<body>
+
+<ul id="menu">
+	<li data-menuanchor="page1" class="active"><a href="#page1">首页</a></li>
+	<li data-menuanchor="page2"><a href="#page2">演唱者</a></li>
+	<li data-menuanchor="page3"><a href="#page3">买票</a></li>
+	<li data-menuanchor="page4"><a href="#page4">联系我们</a></li>
+</ul>
+
+<div id="dowebok">
+	<div class="section">
+		<div class="name">Sing Song</div>
+		<div class="daojishi">
+           距离演唱会倒计时:
+           <span></span>天
+           <span></span>时
+           <span></span>分
+           <span></span>秒
+		</div>
+	</div>
+	<div class="section">
+	   <div class="box">
+           <div class="singer">演唱者</div>
+           <div class="box1">
+              <div class="swiper-container">
+                 <div class="swiper-wrapper">
+                   <div class="swiper-slide">
+                        <div class="names">Link Park</div>
+                       <img src="img/3.jpg" alt=""></div>
+                   <div class="swiper-slide">
+                        <div class="names">Usher</div>
+                       <img src="img/4.jpg" alt=""></div>
+                   <div class="swiper-slide">
+                        <div class="names">Fall Out Boy</div>
+                       <img src="img/5.jpg" alt=""></div>
+                   <div class="swiper-slide">
+                        <div class="names">NightWish</div>
+                       <img src="img/6.jpg" alt=""></div>
+                 </div>
+                </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+  </div>
+           </div>
+	   </div>
+	<div class="section">
+		<div class="maipiao">买票</div>
+		<div class="box2">
+           <div class="swiper-container1">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide aa"><div class="dizhi">纽约</div><img src="img/11.jpg" alt=""><div class="shop">购票</div></div>
+      <div class="swiper-slide aa"><div class="dizhi">伦敦</div><img src="img/12.jpg" alt=""><div class="shop">购票</div></div>
+      <div class="swiper-slide aa"><div class="dizhi">悉尼</div><img src="img/13.jpg" alt=""><div class="shop">购票</div></div>
+      <div class="swiper-slide aa"><div class="dizhi">北京</div><img src="img/14.jpg" alt=""><div class="shop">购票</div></div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination1"></div>
+  </div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="lianxi">联系我们</div>
+		<div class="lx">
+            <div class="dianhua">
+               <div class="email">邮箱：949618567@qq.com</div>
+               <div class="phone">电话：02-359-60566662</div>
+            </div>
+            <div class="dianzi">电子邮件</div>
+            <div class="mingcheng">名称</div>
+            <input type="text" placeholder="电子邮件">
+            <input type="text" placeholder="名称">
+            <div class="message">message</div>
+            <input type="text" class='mess1'>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- <a href="http://www.dowebok.com/" style="display: none;">dowebok</a>
+<a href="http://www.dowebok.com/77.html" style="display: none;">jQuery全屏滚动插件fullPage.js</a> -->
+
+</body>
+<script>
+function djs(){
+  let date1=new Date();
+  let date2=new Date(2018,0,1,20,0,0,0);
+  let time1=date1.getTime();
+  let time2=date2.getTime();
+  let time=time2-time1;
+  let ts=24*60*60*1000;
+  let day=Math.floor(time/ts);
+  let hours=Math.floor(time%ts/(60*60*1000));
+  let minutes=Math.floor(time%(60*60*1000)/(60*1000));
+  if(minutes<10){
+  	minutes='0'+minutes;
+  }
+  let seconds=Math.floor(time%(60*1000)/(1000));
+  if(seconds<10){
+  	seconds='0'+seconds;
+  }
+  $('.daojishi span').first().text(day);
+  $('.daojishi span').eq(1).text(hours);
+  $('.daojishi span').eq(2).text(minutes);
+  $('.daojishi span').last().text(seconds);
+}
+djs();
+  setInterval(djs,1000);
+</script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      freeMode: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  </script>
+  <script>
+    var swiper = new Swiper('.swiper-container1', {
+      effect: 'cube',
+      grabCursor: true,
+      cubeEffect: {
+        shadow: true,
+        slideShadows: true,
+        shadowOffset: 20,
+        shadowScale: 0.94,
+      },
+      pagination: {
+        el: '.swiper-pagination1',
+      },
+    });
+  </script>
+</html>
