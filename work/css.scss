@@ -1,0 +1,75 @@
+.container,.container-fluid{
+  height: auto;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin-right: auto!important;
+  margin-left: auto!important;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.row{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  padding-left: -15px;
+  padding-right: -15px;
+  box-sizing: border-box;
+
+}
+.row:after,.row:before{
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  clear: both;
+}
+[class*="col-"]{
+  float: left;/*
+	padding-left: 15px;
+	padding-right: 15px; */
+  box-sizing: border-box;
+}
+.box{
+  width: 600px;
+  height: 100px;
+  margin: auto;
+  border: 1px solid #000000;
+}
+@mixin write($end,$type,$padd,$kuan,$gao){
+  @if($kuan!=0){
+    .container{
+      width: $kuan;
+      background: blue;
+      height: $gao;
+      //overflow: hidden;
+      box-sizing: border-box;
+    }
+    @for $i from 1 through $end{
+      .col-#{$type}-#{$i}{
+        width:1/$end*100%*$i;
+        height: 100%;
+        padding-left: $padd;
+        padding-right: $padd;
+      }
+    }
+  }
+
+}
+$lg:1200px;
+$md:992px;
+$sm:768px;
+$width:1200px;
+$height:100px;
+@media screen and (min-width: $lg){
+  @include write(6,lg,10px,$width,$height);
+}
+@media screen and (max-width: $lg) and (min-width: $md){
+  @include write(3,md,10px,$width,$height);
+}
+@media screen and (max-width: $md) and (min-width: $sm){
+  @include write(3,sm,10px,$width,$height);
+}
+@media screen and (max-width: $sm){
+  @include write(3,xs,10px,$width,$height);
+}
