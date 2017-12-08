@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 100%;
+            height:300px;
+            background-color: red;
+            text-align: center;
+            line-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    touchstart
+    touchmove
+    touchend
+    延迟200ms
+    targetTouches:当前发生在元素上出发的事件
+    changedTouches：
+    touches：
+    移动端没有offsetX/Y
+    sass向编程方式写css代码
+
+    <div class="box">
+
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+    var box=document.querySelector('.box');
+    box.onclick=function (e) {
+        console.log('clicks');
+    }
+    box.ontouchstart=function (e) {
+        console.log('touchs');
+        this.innnerHTML=e.changedTouches.length;
+    }
+</script>
+</html>

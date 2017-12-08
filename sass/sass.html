@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="css.scss">
+    <link rel="stylesheet" href="sass.css">
+</head>
+<body>
+   npm install -p cnpm
+   cnpm install -g node-sass
+   排布方式：--output-style  nested  expanded compact compressed
+   编译方式：& :hover{}
+   crtl+c是否推出
+   一个变量的值构成选择器或属性名就要用插值#{}
+   插值用法：#{}
+   混合宏
+   @mixin xx(){
+      @for $i from 1 to 13{
+        .col-md-#{$i}{
+           width:1/12*100%*$i;
+        }
+      }
+   }
+   @include xx(x);
+   @for $i from i to 13{
+      .col-md-#{$i}{
+         width:1/12*100*$i;
+      }
+   }
+   @for $i from i through 12{
+      .col-md-#{$i}{
+        width:1/12*100%*$i;
+      }
+   }
+   <div class="box">
+       <span></span>
+   </div>
+</body>
+</html>
