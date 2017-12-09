@@ -1,0 +1,66 @@
+*{
+	margin: 0;padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+.sou{
+	width: 95%;
+	height: 100%;
+	color: #fff;
+	position: relative;
+	left: 5%;top: 0;
+}
+.input{
+	width: 70%;
+	height: 60%;
+    position: absolute;
+    left: 5%;top: 20%;
+    color: #333;
+    border-radius: 0.1rem;
+    font-size: 25px;
+}
+.suo{
+	width: 25%;
+	height: 100%;
+	font-size: 25px;
+	line-height: 0.8rem;
+	color: #fff;
+	text-align: center;
+	position: absolute;
+	right: 0;top: 0;
+}
+.jilv{
+	width: 70%;
+	height: auto;
+	background: #fff;
+	position: absolute;
+	left: 5%;
+	top: 100%;
+	display: none;
+}
+.jilv span{
+	width: 100%;
+	height: 0.3rem;
+	font-size: 20px;
+	line-height: 0.3rem;
+	color: #555;
+	background: #fff;
+	display: block;
+	text-align: left;
+    padding: 0 5px;
+}
+.box{
+	width: 90%;
+	height: auto;
+	padding: 0 5%;
+}
+.fanhui{
+	width: 10%;
+	float: left;
+	height: 100%;
+	font-size: 25px;
+	color: #fff;
+	text-align: center;
+	line-height: 0.8rem;
+	margin-left: -5%;
+}

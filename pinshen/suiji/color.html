@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>随机色</title>
+	<style>
+	   .point{
+	   	width: 30px;
+	   	height: 30px;
+	   	position: absolute;
+	   	left: 0;top: 0;right: 0;bottom: 0;
+	   	margin:auto;
+	   }
+       .circle{
+       	position: absolute;
+       	left: 0;top: 0;
+       	border-radius: 50%;
+       	transition:all 1s 0s;
+       }
+       body{
+        background: black;
+       }
+	</style>
+</head>
+<body>
+   <div class="point"></div>
+</body>
+<script>
+    // var cw=document.documentElement.clientWidth;
+    // var ch=document.documentElement.clientHeight;
+    // var point=document.getElementsByClassName('point')[0];
+    // function bg(){
+    // 	var a=Math.floor(Math.random()*256);
+    // 	var b=Math.floor(Math.random()*256);
+    // 	var c=Math.floor(Math.random()*256);
+    // 	return `rgb(${a},${b},${c})`;
+    // }
+    // function dian(){
+    // 	for(let i=0;i<100;i++){
+    // 	let divs=document.createElement('div');
+    // 	divs.className='circle';
+    // 	let widths=Math.round(Math.random()*30+20);
+    // 	let lefts=Math.round(Math.random()*cw-50)-cw/2;
+    // 	let tops=Math.round(Math.random()*ch-50)-ch/2;
+    // 	divs.style.cssText=`width:${widths}px;height:${widths}px;left:${lefts}px;top:${tops}px;background:${bg()}`;
+    //     point.appendChild(divs);
+    //     }
+    // }
+    // var t=setTimeout(dian(),500);
+    // var cw=document.documentElement.clientWidth;
+    // var ch=document.documentElement.clientHeight;
+    // var point=document.getElementsByClassName('point')[0];
+    // function bg(){
+    // 	var a=Math.floor(Math.random()*256);
+    // 	var b=Math.floor(Math.random()*256);
+    // 	var c=Math.floor(Math.random()*256);
+    // 	return `rgb(${a},${b},${c})`;
+    // }
+    // for(let i=0;i<300;i++){
+    // 	let div=document.createElement('div');
+    // 	div.className='circle';
+    // 	let widths=Math.round(Math.random()*30+20);
+    //     let lefts=Math.round(Math.random()*cw-50)-cw/2;
+    //     let tops=Math.round(Math.random()*ch-50)-ch/2;
+    //     div.style.cssText=`width:${widths}px;height:${widths}px;background:${bg()}`;
+    //     point.appendChild(div);
+    //     let t=setTimeout(function(){
+    // 	   div.style.left=`${lefts}px`;
+    // 	   div.style.top=`${tops}px`;
+    //     },500);
+    // }
+    function bg(){
+    	var a=Math.floor(Math.random()*256);
+    	var b=Math.floor(Math.random()*256);
+    	var c=Math.floor(Math.random()*256);
+    	return `rgb(${a},${b},${c})`;
+    }
+    var cw=document.documentElement.clientWidth-80;
+    var ch=document.documentElement.clientHeight-80;
+    var point=document.getElementsByClassName('point')[0];
+    for(let i=0;i<200;i++){
+    	let box=document.createElement('div');
+        box.className='circle';
+        let lefts=Math.round(Math.random()*cw)-cw/2;
+        let tops=Math.round(Math.random()*ch)-ch/2;
+        let widths=Math.round(Math.random()*30+20);
+        box.style.cssText=`width:${widths}px;height:${widths}px;background:${bg()}`;
+        point.appendChild(box);
+        var f=setInterval(function(){
+            box.style.opacity=1;
+        	box.style.left=`${lefts}px`;
+        	box.style.top=`${tops}px`;
+        	var t=setTimeout(function(){
+        	   box.style.opacity=0;
+            },1500);
+            
+        },2000);
+        	
+        
+        
+        
+    }
+</script>
+</html>

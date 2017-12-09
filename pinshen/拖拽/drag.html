@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document练习拖拽</title>
+    <style>
+        .box,.box1,.box2,.box3,.box4,.box5{
+            width: 200px;
+            height:200px;
+            background: red;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+        .box1{
+            background: yellow;
+        }
+        .box2{
+            background: orangered;
+        }
+        .box3{
+            background: lime;
+        }
+        .box4{
+            background: #0070ff;
+        }
+        .box5{
+            background: deeppink;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+    <div class="box4"></div>
+    <div class="box5"></div>
+</body>
+<script>
+    var box=document.querySelectorAll('div');
+    function Drag(dom) {
+        this.dom=dom;
+        this.ow=this.dom.offsetWidth;
+        this.oh=this.dom.offsetHeight;
+        this.cw=document.documentElement.clientWidth;
+        this.ch=document.documentElement.clientHeight;
+    }
+    Drag.prototype={
+        drag(){
+            this.dom.onmousedown=(e)=>{
+                this.ox=e.offsetX;
+                this.oy=e.offsetY;
+                document.onmousemove=(e)=>{
+                    this.cx=e.clientX;
+                    this.cy=e.clientY;
+                    this.mx=this.cx-this.ox;
+                    this.my=this.cy-this.oy;
+                    if(this.mx<0){
+                        this.mx=0;
+                    }
+                    if(this.mx>this.cw-this.ow){
+                        this.mx=this.cw-this.ow;
+                    }
+                    if(this.my<0){
+                        this.my=0;
+                    }
+                    if(this.my>this.ch-this.oh){
+                        this.my=this.ch-this.oh;
+                    }
+                    this.dom.style.left=this.mx+'px';
+                    this.dom.style.top=this.my+'px';
+                }
+            }
+            this.dom.onmouseup=function () {
+                document.onmousemove=null;
+            }
+            window.addEventListener('resize',()=> {
+                this.cw=document.documentElement.clientWidth;
+                this.ch=document.documentElement.clientHeight;
+            })
+        }
+    }
+    function Drag1(dom) {
+        this.dom=dom;
+        this.cw=document.documentElement.clientWidth;
+        this.ch=document.documentElement.clientHeight;
+        this.ow=this.dom.offsetWidth;
+        this.oh=this.dom.offsetHeight;
+    }
+    Drag1.prototype={
+        drag(){
+            this.down();
+            this.up();
+            this.resize();
+        },
+        down(){
+            this.dom.onmousedown= (e) =>{
+                this.ox=e.offsetX;
+                this.oy=e.offsetY;
+                this.move();
+            }
+        },
+        move(){
+            document.onmousemove=(e)=>{
+                this.cx=e.clientX;
+                this.cy=e.clientY;
+                this.mx=this.cx-this.ox;
+                this.my=this.cy-this.oy;
+                if(this.mx<0){
+                    this.mx=0;
+                }
+                if(this.mx>this.cw-this.ow){
+                    this.mx=this.cw-this.ow;
+                }
+                if(this.my<0){
+                    this.my=0;
+                }
+                if(this.my>this.ch-this.oh){
+                    this.my=this.ch-this.oh;
+                }
+                this.dom.style.left=this.mx+'px';
+                this.dom.style.top=this.my+'px';
+            }
+        },
+        up(){
+            this.dom.onmouseup= () =>{
+                document.onmousemove=null;
+            }
+        },
+        resize(){
+            window.addEventListener('resize',()=>{
+                this.cw=document.documentElement.clientWidth;
+                this.ch=document.documentElement.clientHeight;
+            })
+        }
+    }
+    box.forEach(function (val) {
+        var obj=new Drag1(val);
+        obj.drag();
+    })
+//    var obj=new Drag1(box);
+//    obj.drag();
+</script>
+</html>

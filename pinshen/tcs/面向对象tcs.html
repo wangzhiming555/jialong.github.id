@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面向对象贪吃蛇</title>
+    <style>
+        body{
+            background-image: url("img/1.jpg");
+            background-size: cover;
+        }
+        .diceng{
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            position: absolute;
+        }
+        .box{
+            width: 600px;
+            height: 600px;
+            border: 1px solid #000;
+            margin:auto;
+            /*position: relative;*/
+            position: absolute;
+            left: 0;
+            top:0;
+            bottom: 0;
+            right:0;
+            margin:auto;
+            background-image: url("img/2.png");
+            background-size: cover;
+        }
+        .box div{
+            width: 30px;
+            height:30px;
+            float: left;
+            box-sizing: border-box;
+            border-radius: 50%;
+        }
+        .red{
+            /*background: deeppink;*/
+            background-image: url("img/9.png");
+            /*background-position: 3px 3px;*/
+            background-size: cover;
+        }
+        .red:nth-child(1){
+            background-image: url("img/8.png");
+            background-size:100% 100%;
+            background-position: 0 -5px;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+        }
+        .red:nth-child(3){
+            background-image: url("img/1.png");
+            background-size: cover;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            border-radius: 50%;
+        }
+        .food{
+            background: #007fff;
+            background-image: url("img/5.png");
+            background-size: cover;
+            border-radius: 50%;
+        }
+        .reds{
+            background-image: url("img/1.png");
+            background-size: cover;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            border-radius: 50%;
+        }
+        .wei{
+            background-image: url("img/8.png");
+            background-size:100% 100%;
+            background-position: 0 -5px;
+            background-repeat: no-repeat;
+            border-radius: 10px;
+        }
+        .right{
+            transform: rotate(-90deg);
+            transition: all 0.5s linear;
+        }
+        .top{
+            transform: rotate(-180deg);
+            transition: all 0.5s linear;
+        }
+        .bottom{
+            transform: rotate(0deg);
+            transition: all 0.5s linear;
+        }
+        .left{
+            transform: rotate(90deg);
+            transition: all 0.5s linear;
+        }
+        .fenshu{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            position: absolute;
+            left:0px;
+            top:0px;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+        .zhezhao{
+            width: 600px;
+            height: 600px;
+            background-color: yellow;
+            position: absolute;
+            left:0;
+            top: 0;
+            bottom: 0;
+            right:0;
+            margin:auto;
+            background-image: url("img/2.jpg");
+            background-size: cover;
+        }
+        .open{
+            width: 200px;
+            height:50px;
+            position: absolute;
+            left:50%;
+            margin-left: -100px;
+            bottom: 50px;
+            background-color: blue;
+            border-radius: 20px;
+            cursor: pointer;
+            background-image: url("img/4.png");
+            background-size: 100% 100%;
+        }
+        .fenshu{
+            width: 300px;
+            height: 40px;
+            /*border:1px solid #000000;*/
+            position: relative;
+            left:0px;
+            top:0px;
+            display: flex;
+        }
+        .fenshus{
+            width: 50%;
+            height:100%;
+            font-size: 20px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            display: block;
+        }
+        .fenshus:hover{
+            background-color: #00cccf;
+            position: relative;
+        }
+        .maxfen{
+            width: 150px;
+            height: auto;
+            position: absolute;
+            left:0;
+            top:100%;
+            overflow: hidden;
+            display: none;
+        }
+        .maxfens{
+            width: 100%;
+            height:40px;
+            background-color: #2aabd2;
+        }
+        .start{
+            width: 200px;
+            height: 50px;
+            position: absolute;
+            left:0px;
+            top:20px;
+        }
+        .play{
+            width: 300px;
+            height: 210px;
+            border: 1px solid #000;
+            position: absolute;
+            left:100px;
+            top:200px;
+            overflow: hidden;
+            background-image: url("img/3.png");
+            background-size: cover;
+            display: none;
+        }
+        .biansu{
+            width: 100%;
+            height:auto;
+        }
+        .sudu{
+            width: 50%;
+            height: 40px;
+            float: left;
+            font-size: 20px;
+            text-align: center;
+            line-height: 40px;
+        }
+        .start{
+            width: 100%;
+            height: 50px;
+            margin-top: 140px;
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px;
+            font-family: 微软雅黑;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .cha{
+            width: 50px;
+            height:80px;
+            background-color: #007fff;
+            border-radius: 10px;
+            position: absolute;
+            left: -10px;
+            top:200px;
+            color: #fff;
+            font-size: 30px;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            font-family: 华文琥珀;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="diceng"></div>
+    <div class="box">
+    </div>
+    <div class="zhezhao">
+        <div class="open"></div>
+    </div>
+
+    <div class="cha">玩法</div>
+    <div class="play">
+        <ul class="fenshu">
+            <li class="fenshus">当前得分
+                <ul class="maxfen">
+                    <li class="maxfens"></li>
+                </ul>
+            </li>
+            <li class="fenshus">最高分
+                <ul class="maxfen">
+                    <li class="maxfens"></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="biansu">
+            <div class="sudu">1倍速</div>
+            <div class="sudu">键盘1</div>
+            <div class="sudu">2倍速</div>
+            <div class="sudu">键盘2</div>
+            <div class="sudu">4倍速</div>
+            <div class="sudu">键盘3</div>
+        </div>
+        <div class="start">开始(空格)</div>
+    </div>
+
+
+</body>
+<script src="js/animate.js"></script>
+<script src="js/jquery.min.js"></script>
+<script>
+    let box=document.querySelector('.box');
+    let zhezhao=document.querySelector('.zhezhao');
+    let t;
+    let dongs;
+    let fen;
+    let shenti=[];
+    if(localStorage.maxfen){
+        fen=JSON.parse(localStorage.maxfen);
+        $('.maxfens').eq(1).html(fen);
+    }
+    function Snake(box) {
+        this.box=box;
+        this.str='';
+//        this.kuai;
+        this.she=[
+        {x:0,y:0},
+        {x:1,y:0},
+        {x:2,y:0}
+        ],
+        this.food;
+        this.fooddom;
+        this.maxfen=0;
+        this.nowfen=0;
+    }
+    Snake.prototype={
+        play(){
+            this.span=document.querySelectorAll('.maxfens');
+            console.log(this.span);
+            this.drawKuang(),
+            this.drawSnake(),
+            this.drawFood(),
+            this.move(),
+            this.Kongzhi(),
+            this.fangxiang='right',
+            this.t1;
+            this.t2;
+        },
+        drawKuang(){
+            for(let i=0;i<20;i++){
+                for(let j=0;j<20;j++){
+                    this.str+=`<div id="c${j}-${i}"></div>`;
+                }
+            }
+            this.box.innerHTML=this.str;
+        },
+        drawSnake(){
+            let kuai;
+            this.she.forEach(val=>{
+                kuai=document.querySelector(`#c${val.x}-${val.y}`);
+                kuai.classList.add('red');
+                console.log(kuai);
+            })
+        },
+        drawFood(){
+            let x,y;
+            let that=this;
+            do{
+                x=Math.floor(Math.random()*20);
+                y=Math.floor(Math.random()*20);
+            }while(check(x,y));
+            function check(a,b) {
+                return that.she.some(val=>{val.x==a&&val.y==b});
+            }
+            this.food={x:x,y:y};
+            this.fooddom=document.querySelector(`#c${x}-${y}`);
+            this.fooddom.className='food';
+//            this.food();
+        },
+        clearFood(){
+            this.fooddom.className='';
+            this.food=null;
+        },
+        changemaxfen(){
+                this.span[1].innerText=fen;
+                localStorage.maxfen=JSON.stringify(fen);
+                console.log(1);
+        },
+        move(){
+            this.nh;
+            let that=this;
+//            t=setInterval(dong,500);
+                function dong() {
+                    var nhdom ;
+                    that.oh = that.she[that.she.length - 1];
+                    let ohdom=document.querySelector(`#c${that.oh.x}-${that.oh.y}`);
+                    ohdom.classList.remove('reds');
+                    ohdom.classList.add('red');
+                    if (that.fangxiang == 'right') {
+                        that.nh = {x: that.oh.x + 1, y: that.oh.y};
+                        nhdom= document.querySelector(`#c${that.nh.x}-${that.nh.y}`);
+                        nhdom.classList.add('right');
+                        ohdom.classList.remove('right');
+                    }
+                    if (that.fangxiang == 'left') {
+                        that.nh = {x: that.oh.x - 1, y: that.oh.y};
+                        nhdom= document.querySelector(`#c${that.nh.x}-${that.nh.y}`);
+                        nhdom.classList.add('left');
+                        ohdom.classList.remove('right');
+                    }
+                    if (that.fangxiang == 'top') {
+                        that.nh = {x: that.oh.x, y: that.oh.y - 1};
+                        nhdom= document.querySelector(`#c${that.nh.x}-${that.nh.y}`);
+                        nhdom.classList.add('top');
+                        ohdom.classList.remove('right');
+                    }
+                    if (that.fangxiang == 'bottom') {
+                        that.nh = {x: that.oh.x, y: that.oh.y + 1};
+                        nhdom= document.querySelector(`#c${that.nh.x}-${that.nh.y}`);
+                        nhdom.classList.add('bottom');
+                        ohdom.classList.remove('right');
+                    }
+                    that.she.forEach(function(val){
+                        if(that.nh.x == val.x && that.nh.y == val.y){
+                        clearInterval(t);
+                        alert('game over');
+                        return;
+                        }
+                    })
+                    if (!nhdom) {
+                        clearInterval(t);
+                        alert('game over');
+                        return;
+                    }
+                    if (that.food.x == that.nh.x && that.food.y == that.nh.y) {
+                        that.clearFood();
+                        let aa;
+                        nhdom.classList.add('reds');
+                        that.she.push(that.nh);
+                        that.drawFood();
+                        that.nowfen++;
+//                        that.she[0].classList.add('wei');
+                        that.span[0].innerText = that.nowfen;
+                        if (that.nowfen > fen) {
+                            fen = that.nowfen;
+                            that.changemaxfen();
+                        }
+
+                    }
+                    else {
+                        nhdom.classList.add('reds');
+
+                        that.she.push(that.nh);
+                        that.first = that.she.shift();
+                        let firstdom = document.querySelector(`#c${that.first.x}-${that.first.y}`);
+                        firstdom.classList.remove('wei');
+                        firstdom.classList.remove('red');
+                        that.wei=that.she[0];
+                        let weis=document.querySelector(`#c${that.wei.x}-${that.wei.y}`);
+                        weis.classList.add('wei');
+//                        that.she[0].classList.add('wei');
+                    }
+                }
+                dongs=dong;
+        },
+        Kongzhi(){
+            let that=this;
+            document.onkeydown=function (e) {
+                let current=e.keyCode;
+                if(current==37){
+                    if(that.fangxiang=='right'){
+                        return;
+                    }
+                    that.fangxiang='left';
+                }
+                if(current==38){
+                    if(that.fangxiang=='bottom'){
+                        return;
+                    }
+                    that.fangxiang='top';
+                }
+                if(current==39){
+                    if(that.fangxiang=='left'){
+                        return;
+                    }
+                    that.fangxiang='right';
+                }
+                if(current==40){
+                    if(that.fangxiang=='top'){
+                        return;
+                    }
+                    that.fangxiang='bottom';
+                }
+            }
+        }
+    }
+    let flag2=true;
+    let snake=new Snake(box);
+    snake.play();
+    let seconds=500;
+    $(window).keydown(function (e) {
+        let code=e.which;
+        if(code==32){
+            if(flag2){
+                flag2=false;
+                t=setInterval(dongs,seconds);
+                $('.start').html('暂停(空格)');
+            }
+            else{
+                flag2=true;
+                clearInterval(t);
+                $('.start').html('开始(空格)');
+            }
+        }
+        else if(code==49){
+            seconds=500;
+            clearInterval(t);
+            t=setInterval(dongs,seconds);
+        }
+        else if(code==50){
+            seconds=250;
+            clearInterval(t);
+            t=setInterval(dongs,seconds);
+        }
+        else if(code==51){
+            seconds=125;
+            clearInterval(t);
+            t=setInterval(dongs,seconds);
+        }
+    })
+</script>
+<script>
+    $('.open').click(function () {
+        $(this).parent().slideUp();
+        $('.diceng').show();
+    })
+    $('.fenshus').hover(function () {
+        $(this).find('.maxfen').slideDown();
+    },function () {
+        $(this).find('.maxfen').slideUp();
+    })
+    let flag1=true;
+    $('.cha').click(function () {
+        if(flag1){
+            $('.play').animate({width:0},function () {
+                $(this).hide();
+                $('.cha').html('玩法');
+                flag1=false;
+            });
+        }
+        else{
+            $('.play').toggle();
+            $('.play').animate({width:300},function () {
+                $('.cha').html('关闭');
+                flag1=true;
+            });
+        }
+    })
+
+</script>
+</html>

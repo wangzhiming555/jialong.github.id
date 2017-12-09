@@ -1,0 +1,362 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    list-style: none;
+}
+.toukuang{
+    width: 100%;
+    position: relative;
+}
+.daohang{
+    width: 100%;
+    height: 100px;
+    background: rgba(0,0,0,0.1);
+    position: relative;
+    left: 0;
+    top: 0;
+    z-index: 5;
+}
+.daohang1{
+    width: 1170px;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+body{
+    background: #f0f4fc;
+}
+.logo{
+    width: 100px;
+    height: 100px;
+    padding-left: 80px;
+    float: left;
+}
+.logo img{
+    width: 100px;
+    height: 100px;
+}
+.liebiao{
+    width: 900px;
+    height: 100px;
+    padding-left: 70px;
+    float: left;
+}
+.liebiao ul{
+    width: 100%;
+    height: 100%;
+}
+.liebiao ul li{
+    width: 140px;
+    height: 100px;
+    float: left;
+    text-align: center;
+    line-height: 100px;
+    position: relative;
+}
+.liebiao ul li a{
+    width: 100%;
+    height:100%;
+    display: block;
+    color: #fff;
+}
+.liebiao ul li:hover{
+    border-bottom: 1.5px solid #ddd;
+}
+.banner{
+    width: 100%;
+    height: 562px;
+    margin-top: -100px;
+    position: relative;
+}
+.banner img{
+    width:100%;
+    height: 100%;
+}
+.bannerzi1{
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    font-size: 30px;
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+}
+.bannerzi2{
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    left: 0;
+    top: 75px;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    font-size: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+}
+.solu-body1{
+    width: 100%;
+    background: rgba(0,0,0,0.01);
+}
+.contant-text1{
+    width: 100%;
+}
+.biaoti{
+    width: 1170px;
+    margin: 0 auto;
+}
+.biaoti p{
+    width: 100%;
+    padding: 65px 0 30px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 1.5;
+    color: #252525;
+    border-bottom: 1px solid #a9a9a9;
+}
+.point{
+    width: 100%;
+}
+.commonfix{
+    width: 1170px;
+    padding: 100px 0;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.commonleft,.commonleft1{
+    width: 545px;
+    padding-right: 40px;
+    float: left;
+}
+.commonleft p{
+    display: block;
+    font-size: 24px;
+    color: #333;
+    margin: 10px 0 5px;
+}
+.undertitle{
+    width: 153px;
+    height: 2px;
+    background: #3d96e7;
+    margin: 15px 0;
+}
+.pointtext,.pointtext1{
+    font-size: 16px;
+    line-height: 30px;
+    margin-top: 10px;
+}
+.pointtext1{
+    color: #fff;
+}
+.xiangqing{
+    padding:7px 17px;
+    color: #fff;
+    border-radius: 4px;
+    background: #3876ff;
+    margin-top: 30px;
+    display: inline-block;
+}
+.commonright,.commonright1{
+    width: 545px;
+    padding-left: 40px;
+    float: left;
+}
+.commonright img,.commonright1 img{
+    width: 100%;
+    height: 300px;
+}
+.commonright1{
+    padding:0 40px 0 0px;
+}
+.commonleft1{
+    padding: 0 0px 0 40px;
+}
+.point2{
+    width: 100%;
+    position: relative;
+    margin: 50px 0;
+}
+.point2 img{
+    width: 100%;
+    height:100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.commonfix1{
+    width: 1170px;
+    height: auto;
+    position: relative;
+    left: 0;right: 0;top: 0;bottom: 0;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.commonleft2{
+    width: auto;
+    float: left;
+    padding: 100px 40px 100px 0;
+}
+.title{
+    display: block;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 6px;
+}
+.point3{
+    width: 100%;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+.commonfix3{
+    width: 1170px;
+    height:auto;
+    position: absolute;
+    left: 0;
+    top: 0;right: 0;bottom: 0;
+    margin: 0 auto;
+    overflow: hidden;
+}
+h1{
+    display: block;
+    width: 100%;
+    font-size: 36px;
+    color: #000;
+    text-align: center;
+    line-height: 1.5;
+    margin-top: 70px;
+    position: relative;
+}
+.modal-box,.modal-box a{
+    width: 285px;
+    height: 269px;
+    margin: 50px 0 70px;
+    float: left;
+    margin-right: 3px;
+    position: relative;
+}
+.modal-box a{
+    margin: 0;
+}
+.modal-box1,.modal-box2,.modal-box3,.modal-box4{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    background: rgba(0,0,0,0.3);
+    display: none;
+}
+.modal-box img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.modal-box p{
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+    line-height: 269px;
+    color: #fff;
+}
+.modal-box:hover .modal-box1,.modal-box:hover .modal-box2,.modal-box:hover .modal-box3,.modal-box:hover .modal-box4{
+    display: block;
+}
+.body5{
+    width: 100%;
+    height: 90px;
+    background-image: url(../img/3.jpg);
+    background-size: 100% 200%;
+    background-position: -40% 0;
+
+}
+.body5 .lianxi{
+    padding: 8px 32px;
+    border:2px solid #fff;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
+    display: inline-block;
+    margin: 27px auto;
+    margin-left: 45%;
+    cursor: pointer;
+}
+.lianxi:hover{
+    background: #3876ff;
+    border: 2px solid #3876ff;
+    color: #fff;
+}
+.foot-top{
+    width: 1170px;
+    height: 300px;
+    padding-top: 70px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.foot-bottom{
+    width: 100%;
+    height: 59px;
+    border-top: 1px solid #555;
+}
+.foot-logo{
+    width: 245px;
+    height: 160px;
+    float: left;
+    margin-top: 10px;
+}
+.foot-logo img{
+    width: 100%;
+    height: 100%;
+    background: blue;
+}
+.qicai{
+    width: 170px;
+    height: auto;
+    float: left;
+}
+.qicai h4,.chengguo h4{
+    line-height: 30px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.qicai p,.chengguo p,.qicai p a,.chengguo p a{
+    font-size: 14px;
+    color: #a3a3a3;
+    line-height: 26px;
+    margin-bottom: 10px;
+}
+footer{
+    width: 100%;
+    height: 430px;
+    background: rgba(0,0,0,0.9);
+}
+.chengguo{
+    width: 290px;
+    height: auto;
+    float: left;
+}
+.footer-bottom{
+    width: 1170px;
+    height: 100%;
+    margin: 0 auto;
+}
+.footer-bottom p{
+    color: #fff;
+    text-align: center;
+    line-height: 59px;
+}
