@@ -1,0 +1,59 @@
+$pad:padding;
+$wid:width;
+$hei:height;
+$text:text-align;
+$line:line-height;
+$center:center;
+$width:100%;
+$padding:0rem;
+$mag:margin;
+$margin:0;
+$list:list-style;
+$liststyle:none;
+$textd:text-deriction;
+*{
+  #{$pad}:$padding;
+  #{$mag}:$margin;
+  #{$list}:$liststyle;
+  #{$textd}:$liststyle;
+}
+.tu{
+  #{$wid}:$width;
+  #{$hei}:auto;
+  #{$pad}:0.1rem;
+  box-sizing: border-box;
+  img{
+    #{$wid}:100%;
+    #{$hei}:auto;
+  }
+}
+.title{
+  #{$wid}:$width;
+  #{$hei}:auto;
+  font-size: 20px;
+  #{$text}:justify;
+  #{$line}:0.3rem;
+  #{$pad}:0.1rem;
+  box-sizing: border-box;
+}
+.nav{
+  #{$wid}:$width;
+  #{$hei}:0.5rem;
+  background: #007aff;
+  font-size: 30px;
+  #{$text}:$center;
+  #{$line}:0.5rem;
+  color: #fff;
+}
+.fanhui{
+  #{$wid}:0.5rem;
+  #{$hei}:$width;
+  float: left;
+  #{$text}:$center;
+  #{$line}:0.5rem;
+  font-size: 20px;
+  color: #fff;
+  position: absolute;
+  left: 0;
+  top:0;
+}

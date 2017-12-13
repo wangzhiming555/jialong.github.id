@@ -1,0 +1,65 @@
+$width:100%;
+$height:auto;
+$wid:width;
+$hei:height;
+$padding:0.1rem;
+$box:box-sizing;
+$siz:border-box;
+$justify:justify;
+$bgc:#007aff;
+$center:center;
+*{
+  padding: 0;
+  margin:0;
+  list-style: none;
+  text-decoration: none;
+}
+.nav{
+  #{$wid}:$width;
+  #{$hei}:.5rem;
+  background: $bgc;
+  font-size: 30px;
+  text-align: $center;
+  line-height: 0.5rem;
+  color: #fff;
+}
+.fanhui{
+  #{$wid}:0.5rem;
+  #{$hei}:$width;
+  font-size: 30px;
+  text-align: $center;
+  line-height: 0.5rem;
+  color: #fff;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.img{
+  #{$wid}:$width;
+  #{$hei}:3rem;
+  padding:0.2rem;
+  #{$box}:$siz;
+  font-size: 15px;
+  line-height: 25px;
+  text-align: $justify;
+  position: relative;
+  overflow: hidden;
+  .title{
+    #{$wid}:$width;
+    #{$hei}:$height;
+    font-size: 20px;
+    line-height: 0.3rem;
+    text-align: $justify;
+    position: absolute;
+    left:0;
+    top:0;
+  }
+  img{
+    #{$wid}:$width;
+    #{$hei}:$height;
+    position: absolute;
+    left:0;
+    top:0.6rem;
+  }
+
+}

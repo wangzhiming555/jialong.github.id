@@ -1,0 +1,63 @@
+*{
+	margin:0;
+	padding:0;
+	list-style:none;
+	text-derection:none;
+}
+$width:100%;
+.nav{
+	width: $width;
+	height:0.5rem;
+	background:#007fff;
+	font-size:30px;
+	color:#fff;
+	text-align: center;
+	line-height: 0.5rem;
+}
+.fenleis{
+	width: $width;
+	height:0.3rem;
+	font-size: 15px;
+	text-align: center;
+	line-height: 0.3rem;
+	display: flex;
+	.fenlei{
+		width: 20%;
+		height:$width;
+	}
+}
+$padding:0.1rem;
+$maxheight:1.5rem;
+$color:#333;
+.liebiaos{
+	width: $width;
+	height: auto;
+	.liebiao{
+		padding: $padding;
+		max-height:$maxheight;
+		overflow: hidden;
+		img{
+			width: 45%;
+			height: $width;
+			display: block;
+			float: left;
+			margin-right: 5%;
+		}
+		.text{
+			width: 45%;
+			height: $width;
+			font-size: 12px;
+			line-height: 0.2rem;
+			text-align: justify;
+			float: left;
+			margin-right: 5%;
+			color: $color;
+		}
+	}
+}
+.swiper-slide{
+	img{
+		width: $width;
+		height: $width;
+	}
+}

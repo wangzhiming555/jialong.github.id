@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/base3.css">
+    <script src="js/rem.js"></script>
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <script src="js/swiper.min.js"></script>
+    <style>
+        body{
+            background: #000;
+        }
+    </style>
+    <style>
+        html, body {
+            position: relative;
+            height: 100%;
+            background: #000;
+        }
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color:#000;
+            margin: 0;
+            padding: 0;
+        }
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #000;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="nav">
+    博客
+    <a href="index.html"><div class="fanhui"><</div></a>
+</div>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="box">
+                <img src="img/11.jpg" alt="">
+            </div>
+            <div class="bottom">他平时就一副高傲的样子。在一次金鹰节的颁奖典礼上，
+                一位记者递给了他一张名片，他顺手接了过来，不过下一秒，他居然将名片包起了自己嘴里的口香糖，这个小小的举动表明了
+                他很文明，但是同样也从侧面反映了他不够尊重人！</div>
+        </div>
+        <div class="swiper-slide">
+            <div class="swiper-slide">
+                <div class="box">
+                    <img src="img/12.jpg" alt="">
+                </div>
+                <div class="bottom">说起耍大牌，关注王志文也就看看就过去了，毕竟更多关注的是他的演戏。</div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="swiper-slide">
+                <div class="box">
+                    <img src="img/13.jpg" alt="">
+                </div>
+                <div class="bottom">咱们再说这位在剧组当自己是地主婆就有点过分了啊。刘嘉玲向来我行我素，一副高高在上的样子，
+                    有一次在剧组戏的时候，休息的空档，同时三个助理伺候她。一个给她打伞，一个在旁边给她扇扇子，还有一个给她递吃的。
+                    这样的耍大牌行为让观众很反感，也被诟病很长时间。</div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="swiper-slide">
+                <div class="box">
+                    <img src="img/14.jpg" alt="">
+                </div>
+                <div class="bottom">那英作为歌坛的大姐大，这几年来也是黑料不断，说起耍大牌自然也是少不了她。那英在录制节目
+                    《中国好声音》的时候，因为场内的空调突然坏了，就直接要求工作人员站在她的身旁给她扇扇子，这样才勉强把节目
+                    录制完成。听说后来把工作人员骂了一顿。</div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="swiper-slide">
+                <div class="box">
+                    <img src="img/15.jpg" alt="">
+                </div>
+                <div class="bottom">女星秦岚，再一次商业结束接受采访时，让助理跪在地上拿着话筒，自己在那里噼里啪啦说一堆，
+                    我就想问，考虑过跪在地上的那个人的感受吗？？</div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Pagination -->
+    <!--<div class="swiper-pagination"></div>-->
+</div>
+</body>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        spaceBetween: 30,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+</script>
+</html>
