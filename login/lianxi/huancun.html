@@ -6,33 +6,31 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/bootstrap.min.js"></script>
     <style>
         .box{
             width: 500px;
             height: 400px;
-            box-shadow: 0 0 30px #666;
+            box-shadow: 0 0 30px #ccc;
             position: absolute;
             left:0;
             top:0;
-            right: 0;
+            right:0;
             bottom: 0;
-            margin: auto;
+            margin:auto;
         }
         .box p{
-            font-size: 30px;
             width: 100%;
-            height: 200px;
+            height: 50%;
+            font-size: 30px;
             text-align: center;
             line-height: 200px;
         }
-        .tishi{
+        .daojishi{
             width: 100%;
             height: 50%;
             font-size: 15px;
+            line-height: 200px;
             text-align: center;
-            line-height: 30px;
         }
         span{
             color: red;
@@ -40,24 +38,25 @@
     </style>
 </head>
 <body>
-    <div class="box">
-        <p><?php echo $tishi ?></p>
-        <div class="tishi">
-            <span>3</span>秒后跳转 <a href="<?php echo $url ?>">立即跳转</a>
-        </div>
+<div class="box">
+    <p><?php echo $tishi ?></p>
+    <div class="daojishi">
+        <span>5</span>秒后跳转
+        <a href="<?php echo $url ?>">点击立即跳转</a>
     </div>
+</div>
 </body>
 <script>
-    let time=5;
     let span=document.querySelector('span');
     let a=document.querySelector('a');
-    function jian() {
-        time--;
-        if(time==0){
+    let tm=5;
+    function time() {
+        tm--;
+        span.innerHTML=tm;
+        if(tm==0){
             location.href=a.href;
         }
-        span.innerHTML=time;
     }
-    let t=setInterval(jian,1000);
+    let t=setInterval(time,1000);
 </script>
 </html>
