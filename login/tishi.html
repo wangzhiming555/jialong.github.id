@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 600px;
+            height: 500px;
+            box-shadow: 0 0 30px #ccc;
+            position: absolute;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            margin: auto;
+        }
+        p{
+            width: 100%;
+            height: 50%;
+            font-size: 30px;
+            line-height: 250px;
+            text-align: center;
+        }
+        .tishi{
+            width: 100%;
+            height: 50%;
+            font-size: 20px;
+            line-height: 250px;
+            text-align: center;
+        }
+        span{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+<p><?php echo $tishi ?></p>
+    <div class="tishi">
+        <span>5</span>秒后跳转
+        <a href="<?php echo $url ?>">点击立即跳转</a>
+    </div>
+</div>
+</body>
+<script>
+    let span=document.querySelector('span');
+    let a=span.nextElementSibling;
+    let s=5;
+    function jian() {
+        s--;
+        span.innerHTML=s;
+        if(s==0){
+            location.href=a.href;
+        }
+    }
+    let t=setInterval(jian,1000);
+</script>
+</html>
