@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>课堂练习</title>
+    <style>
+        .box{
+            width: 1200px;
+            height: auto;
+            border: 1px solid #000;
+            margin: auto;
+        }
+        h1{
+            line-height: 30px;
+            text-align: center;
+        }
+        table{
+            width: 100%;
+            height: auto;
+        }
+        tr,.tr{
+            width: 100%;
+            height: auto;
+        }
+        td{
+            width: 20%;
+            height: 40px;
+            border-bottom: 1px dotted #666;
+            font-size: 20px;
+            line-height: 40px;
+            text-align: center;
+        }
+        .del{
+            width: 90%;
+            height: 100%;
+            border-radius: 5px;
+            background-color: red;
+            font-size: 20px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            margin: auto;
+        }
+        *{
+            margin: 0;
+            padding:0;
+            list-style: none;
+        }
+        .add{
+            width: 200px;
+            height: 40px;
+            border-radius: 5px;
+            background-color: lime;
+            margin: auto;
+            font-size: 20px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>学生管理系统</h1>
+        <table>
+            <tr>
+                <td>学号</td>
+                <td>姓名</td>
+                <td>年龄</td>
+                <td>电话</td>
+                <td>操作</td>
+            </tr>
+
+        </table>
+        <div class="add">添加</div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+    $.ajax({
+        url:"select.php",
+        dataType:"json",
+        success:function (res) {
+            let str='';
+            res.forEach((val)=> {
+                str+=`<tr id="${val.id}">
+                <td class="num">${val.num}</td>
+                <td class="name">${val.name}</td>
+                <td class="age">${val.age}</td>
+                <td class="tel">${val.tel}</td>
+                <td><div class="del">删除</div></td>
+            </tr>`;
+            })
+            $('tbody').html((index,html)=>html+str);
+        }
+    })
+    $('.add').click(function () {
+        $.ajax({
+            url:"add.php",
+            dataType:"text",
+            success:function (res) {
+                if(!isNaN(res)){
+                    $('<tr>').html(`<td class="num"></td><td class="name"></td><td class="age"></td><td class="tel"></td><td><div class="del">删除</div></td>`).attr('id',res).appendTo($('tbody'));
+                }
+            }
+        })
+    })
+    $('tbody').on('click',".del",function () {
+        let ids=$(this).closest('tr').attr('id');
+        let par=$(this).closest('tr');
+        $.ajax({
+            url:"del.php",
+            dataType:'text',
+            data:{id:ids},
+            success:function (res) {
+                console.log(res);
+                if(res=='1'){
+                    par.remove();
+                }
+                else{
+                    console.log(res);
+                }
+            }
+        })
+    }).on('click','td',function () {
+//        if(!$(this).children()){
+            let input = $('<input>');
+            let val= $(this).text();
+            let par=$(this);
+            let id=$(this).parent().attr('id');
+            let cloum=$(this).attr('class');
+            input.val(val);
+            $(this).html(input);
+            input.focus();
+            input.blur(function () {
+                let vas = $(this).val();
+                if(val==vas){
+                    par.html(vas);
+                }
+                else{
+                    $.ajax({
+                        url:"update.php",
+                        data:{id,cloum,vas},
+                        success:function (res) {
+                            if(res==1){
+                                par.html(vas);
+                            }
+                            else{
+                                console.log(res);
+                            }
+                        }
+                    })
+                }
+            })
+//        }
+    })
+</script>
+<!--<script>-->
+   <!--// let datebase=[];-->
+   <!--// datebase=[{nub:1,id:"001",name:'xxx',clas:'1708',sex:'man',caozuo:'删除'},-->
+   <!--//     {nub:2,id:"002",name:'xxx',clas:'1708',sex:'man',caozuo:'删除'}];-->
+
+   <!--// localStorage.date=JSON.stringify(datebase);-->
+    <!--let dates=JSON.parse(localStorage.date);-->
+    <!--let tbody=document.querySelector('tbody');-->
+    <!--let str='';-->
+    <!--let nubs=0;-->
+    <!--dates.forEach(function (val) {-->
+        <!--nubs++;-->
+        <!--str+=`<tr nub=${nubs}>`;-->
+        <!--str+=`-->
+              <!--<td aa="id">${val.id}</td>-->
+              <!--<td aa="name">${val.name}</td>-->
+              <!--<td aa="clas">${val.clas}</td>-->
+              <!--<td aa="sex">${val.sex}</td>-->
+              <!--<td aa="del"><div class="del">${val.caozuo}</div></td>-->
+              <!--`;-->
+        <!--str+='</tr>';-->
+    <!--})-->
+    <!--tbody.innerHTML+=str;-->
+    <!--console.log(dates);-->
+    <!--let add=document.querySelector('.add');-->
+    <!--add.onclick=function () {-->
+        <!--nubs++;-->
+        <!--let str='';-->
+        <!--str+=`<tr nub=${nubs}>`;-->
+        <!--str+=`<td aa="id"></td>-->
+              <!--<td aa="name"></td>-->
+              <!--<td aa="clas"></td>-->
+              <!--<td aa="sex"></td>-->
+              <!--<td aa="del"><div class="del">删除</div></td>`;-->
+        <!--str+='</tr>';-->
+        <!--tbody.innerHTML+=str;-->
+        <!--dates.push({nub:nubs,id:'',name:'',clas:'',sex:'',caozuo:'删除'});-->
+        <!--localStorage.date=JSON.stringify(dates);-->
+    <!--}-->
+    <!--tbody.onclick=function (e) {-->
+        <!--let current=e.target;-->
+        <!--if(current.classList.contains('del')){-->
+            <!--let par=current.parentNode.parentNode;-->
+            <!--let id=par.getAttribute('nub');-->
+            <!--let index=dates.findIndex(val=>{-->
+                <!--return val.nub==id;-->
+            <!--})-->
+            <!--dates.splice(index,1);-->
+            <!--localStorage.date=JSON.stringify(dates);-->
+            <!--tbody.removeChild(par);-->
+        <!--}-->
+        <!--if(current.nodeName=='TD'&&current.children.length==0){-->
+            <!--let val=current.innerText;-->
+            <!--let input=document.createElement('input');-->
+            <!--current.innerText='';-->
+            <!--input.value=val;-->
+            <!--current.appendChild(input);-->
+            <!--input.focus();-->
+            <!--input.onblur=function () {-->
+                <!--let currents=this.parentNode;-->
+                <!--let vas=input.value;-->
+                <!--let aa=currents.getAttribute('aa');-->
+                <!--current.innerHTML=vas;-->
+                <!--if(val==vas){-->
+                    <!--current.innerHTML=vas;-->
+                <!--}-->
+                <!--else{-->
+                    <!--let par=currents.parentNode;-->
+                    <!--let id=par.getAttribute('nub');-->
+                    <!--let index=dates.findIndex(function (vav,ind) {-->
+                        <!--if(id==ind+1){-->
+                            <!--return id;-->
+                        <!--}-->
+                    <!--})-->
+                    <!--dates[index][aa]=vas;-->
+                    <!--localStorage.date=JSON.stringify(dates);-->
+                <!--}-->
+            <!--}-->
+        <!--}-->
+
+    <!--}-->
+<!--</script>-->
+<!--<script>-->
+    <!--let add=document.querySelector('.add');-->
+    <!--let tbody=document.querySelector('tbody');-->
+    <!--add.onclick=function () {-->
+        <!--let tr=document.createElement('tr');-->
+        <!--tr.classList.add('tr');-->
+        <!--tr.innerHTML=`<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td><div class="del">删除</div></td>`;-->
+        <!--tbody.appendChild(tr);-->
+    <!--}-->
+    <!--tbody.onclick=function (e) {-->
+        <!--let current=e.target;-->
+        <!--if(current.classList.contains('del')){-->
+            <!--this.removeChild(current.parentNode.parentNode);-->
+        <!--}-->
+        <!--if(current.nodeName=='TD'&&current.children.length==0){-->
+            <!--let input=document.createElement('input');-->
+            <!--let val=current.innerText;-->
+            <!--current.innerText='';-->
+            <!--input.value=val;-->
+            <!--input.focus();-->
+            <!--current.appendChild(input);-->
+            <!--input.onblur=function () {-->
+                <!--let vas=input.value;-->
+                <!--current.removeChild(input);-->
+                <!--current.innerHTML=vas;-->
+            <!--}-->
+        <!--}-->
+
+    <!--}-->
+<!--</script>-->
+</html>

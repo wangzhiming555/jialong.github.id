@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todolist</title>
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div class="nav">
+    <section>
+        <div class="todo">ToDoList</div>
+        <input type="text" placeholder="添加ToDo" class="jia">
+    </section>
+</div>
+<div class="box">
+    <h2 class="h22">正在进行 <span class='span1'>0</span></h2>
+    <div class="box1">
+        <!--<li class='li'>-->
+        <!--<input type="checkbox" class='radio'>-->
+        <!--<p class='title'>1111</p>-->
+        <!--<div class="delete">-->
+        <!--<div class="del"></div>-->
+        <!--</div>-->
+        <!--</li>-->
+    </div>
+    <h2 class='h2'>已经完成 <span class='span2'>0</span></h2>
+    <div class="box2"></div>
+    <div class="before"></div>
+</div>
+<footer>Copyright © 2014 todolist.cn clear</footer>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+//    let todo=[
+//    {id:0,title:'aaa',flag:false},
+//    {id:1,title:'bbb',flag:false},
+//    {id:2,title:'ccc',flag:true},
+//    {id:3,title:'ddd',flag:false},
+//    {id:4,title:'eee',flag:true},
+//    {id:5,title:'fff',flag:false}
+//    ]
+    reader();
+    function reader() {
+        let doing=[];
+        let done=[];
+        let str='';
+        let atr='';
+        let a=0,b=0;
+        let datebase=[];
+        $.ajax({
+            url:'select.php',
+            dataType:'json',
+            success:function (todo) {
+                console.log(todo);
+                todo.forEach(function (val) {
+                    console.log();
+                    if(val['flag']=='true'){
+                        done.push(val);
+                    }
+                    else{
+                        doing.push(val);
+                    }
+                })
+                doing.forEach(function (val) {
+                    console.log(1);
+                    a++;
+                    str+=`<li class='li' id="${val.id}">
+                 <input type="checkbox" class='radio'>
+                 <p class='title'>${val.title}</p>
+                 <div class="delete">
+                 <div class="del"></div>
+                 </div>
+                 </li>`
+                })
+                done.forEach(function (val) {
+                    b++;
+                    atr+=`<li class='li' id="${val.id}">
+                 <input type="checkbox" class='radio'>
+                 <p class='title'>${val.title}</p>
+                 <div class="delete">
+                 <div class="del"></div>
+                 </div>
+                 </li>`;
+                })
+                $('.box1').html(str);
+                $('.box2').html(atr);
+                $('.span1').html(a);
+                $('.span2').html(b);
+            }
+        })
+    }
+    $('.box1').on('click','.radio',function () {
+        let id=$(this).closest('li').attr('id');
+        $.ajax({
+            url:'change.php',
+            dataType:'text',
+            data:{id:id},
+            success:function (val) {
+                if(val==1){
+                   reader();
+                }
+                else{
+                    console.log(val);
+                }
+            }
+        })
+//
+
+//        let ind=todo.findIndex(function (val,ind) {
+//            if(val.id==id){
+//                return ind;
+//            }
+//        })
+//        let flag=todo[ind].flag;
+//        if(flag){
+//            todo[ind].flag=false;
+//            reader();
+//        }else{
+//            $(this).closest('li');
+//            todo[ind].flag=true;
+//            reader();
+//        }
+    }).on('click','.del',function () {
+        let id=$(this).closest('li').attr('id');
+        $.ajax({
+            url:'del.php',
+            dataType:'text',
+            data:{id:id},
+            success:function (val) {
+                if(val===1){
+                    reader();
+                }
+                else{
+                    console.log(val);
+                }
+            }
+        })
+//        let index=todo.findIndex((val,ind)=>{
+//            if(id==val.id){
+//                return ind;
+//            }
+//        })
+//        todo.splice(index,1);
+//        reader();
+    }).on('click','.title',function () {
+        let input=$('<input>');
+        let val=$(this).html();
+        input.val(val);
+        $(this).html('');
+        $(this).append(input);
+        $(input).focus();
+        let pas=$(this);
+        let id = $(this).parent().attr('id');
+        let title = $(this).attr('class');
+        $(input).blur(()=>{
+            let vas = input.val();
+            if(val==vas){
+                $(this).html(vas);
+            }
+            else{
+                $.ajax({
+                    url:"update.php",
+                    dataType:"text",
+                    data:{id,title,vas},
+                    success:function (e) {
+                        if(e==1){
+                            pas.html(vas);
+                        }
+                        else{
+                            console.log(e);
+                        }
+                    }
+                })
+            }
+        })
+
+//        return;
+
+//        console.log(val);
+
+//        $(input).blur(()=>{
+//            let vas=$(input).val();
+//            $(this).html(vas);
+//        });
+    })
+    let ids=6;
+    $('body').on('keyup','.jia',function (e) {
+        let which=e.which;
+        console.log(which);
+        if(which==13){
+            let val=$('.jia').val();
+            $.ajax({
+                url:"insert.php",
+                dataType:"text",
+                data:{vas:val},
+                success:function (vas) {
+                    reader();
+                    $('.jia').val('');
+                }
+            })
+            return;
+//            todo.push({id:ids,title:val,flag:false});
+//            $('.jia').val('');
+//            ids++;
+//            reader();
+        }
+    })
+    $('.box2').on('click','.radio',function () {
+        let id=$(this).closest('li').attr('id');
+            $.ajax({
+                url:'change1.php',
+                dataType:'text',
+                data:{id:id},
+                success:function (val) {
+                    if(val==1){
+                        reader();
+                    }
+                    else{
+                        console.log(val);
+                    }
+                }
+            })
+    }).on('click','.del',function () {
+        let id = $(this).closest('li').attr('id');
+        $.ajax({
+            url: 'del.php',
+            dataType: 'text',
+            data: {id: id},
+            success: function (val) {
+                if (val === 1) {
+                    reader();
+                }
+                else {
+                    console.log(val);
+                }
+            }
+        })
+    }).on('click','.title',function () {
+        let input = $('<input>');
+        let val = $(this).html();
+        input.val(val);
+        $(this).html('');
+        $(this).append(input);
+        $(input).focus();
+        let pas = $(this);
+        let id = $(this).parent().attr('id');
+        let title = $(this).attr('class');
+        input.blur(()=>{
+            let vas = input.val();
+        if (val == vas) {
+            $(this).html(vas);
+        }
+        else {
+            $.ajax({
+                url: "update.php",
+                dataType: "text",
+                data: {id, title, vas},
+                success: function (e) {
+                    if (e == 1) {
+                        pas.html(vas);
+                    }
+                    else {
+                        console.log(e);
+                    }
+                }
+            })
+        }
+    })
+    })
+</script>
+</html>

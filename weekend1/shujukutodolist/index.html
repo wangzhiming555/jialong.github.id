@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div class="nav">
+    <section>
+        <div class="todo">ToDoList</div>
+        <input type="text" placeholder="添加ToDo" class="jia">
+    </section>
+</div>
+<div class="box">
+    <h2 class="h22">正在进行 <span class='span1'>0</span></h2>
+    <div class="box1">
+    </div>
+    <h2 class='h2'>已经完成 <span class='span2'>0</span></h2>
+    <div class="box2"></div>
+    <div class="before"></div>
+</div>
+<footer>Copyright © 2014 todolist.cn clear</footer>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+    let todo=[
+        {id:0,title:'aaa',flag:false},
+        {id:1,title:'bbb',flag:false},
+        {id:2,title:'ccc',flag:true},
+        {id:3,title:'ddd',flag:true},
+        {id:4,title:'eee',flag:false},
+        {id:5,title:'fff',flag:true}
+    ]
+    let a;
+    let b;
+    function reader() {
+        let str='';
+        let qtr='';
+        a=0;
+        b=0;
+        todo.forEach(function (val) {
+            if(val.flag){
+                a++;
+                str+=`<li class='li' id="${val.id}">
+                 <input type="checkbox" class='radio'>
+                 <p class='title'>${val.title}</p>
+                 <div class="delete">
+                 <div class="del"></div>
+                 </div>
+                 </li>`
+                $('.box2').html(str);
+                $('.span2').html(a);
+            }
+            else{
+                b++;
+                qtr+=`<li class='li' id="${val.id}">
+                 <input type="checkbox" class='radio'>
+                 <p class='title'>${val.title}</p>
+                 <div class="delete">
+                 <div class="del"></div>
+                 </div>
+                 </li>`;
+                $('.box1').html(qtr);
+                $('.span1').html(b);
+            }
+        })
+    }
+    reader();
+    $('.box').on('click','.radio',function () {
+        let id=$(this).parent().attr('id');
+        let li=$(this).parent();
+        let ind=todo.findIndex(function (val,ind) {
+            if(val.id==id){
+                console.log(val.id);
+                return ind-1;
+            }
+        })
+        if(todo[ind].flag){
+            todo[ind].flag=false;
+            console.log(todo[ind].flag);
+            reader();
+        }
+        else{
+            todo[ind].flag=true;
+            reader();
+        }
+    }).on('click','.del',function () {
+        let id=$(this).closest('li').attr('id');
+        let li=$(this).parent().parent();
+        let ind=todo.findIndex(function (val,ind) {
+            if(val.id==id){
+                return ind;
+            }
+        })
+        todo.splice(ind,1);
+        reader();
+    }).on('click','.title',function () {
+        let id=$(this).closest('li').attr('id');
+        let li=$(this).parent();
+        let val=$(this).text();
+        let input=$('<input>');
+        let par=$(this);
+        input.val(val);
+        $(this).html(input);
+        input.focus();
+        input.blur(function () {
+            let vas=$(this).val();
+            if(vas==val){
+                par.html(vas);
+            }
+            else{
+                par.html(vas);
+                let ind=todo.findIndex(function (val,ind) {
+                    if(id==val.id){
+                        return ind;
+                    }
+                })
+                todo[ind]['title']=vas;
+                reader();
+            }
+        })
+    })
+    let id=6;
+    $('body').on('keyup','.jia',function (e) {
+        let code=e.keyCode;
+        if(code==13){
+            let val=$(this).val();
+            todo.push({id:id,title:val,flag:false});
+            reader();
+            id++;
+        }
+    })
+</script>
+</html>
