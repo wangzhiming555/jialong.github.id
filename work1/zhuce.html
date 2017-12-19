@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 500px;
+            height: 500px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #ccc;
+            position: absolute;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            margin: auto;
+            padding: 50px;
+            box-sizing: border-box;
+        }
+        .yonghu,.mima,.zhuce{
+            width: 100%;
+            height: 50px;
+            padding: 25px 0;
+            font-size: 20px;
+            line-height: 50px;
+            color: #333;
+        }
+        .zhuce{
+            background-color: #0085fe;
+            color: #fff;
+            text-align: center;
+            border-radius: 20px;
+            height: 50px;
+            padding: 0;
+            margin: 25px 0;
+            cursor: pointer;
+        }
+        .user,.pass,.pass1{
+            width:65%;
+            height: 100%;
+            border-radius: 10px;
+            outline: none;
+            font-size: 20px;
+            line-height: 50px;
+            margin-left: 10%;
+            background-color: #fefefe;
+        }
+        .pass1{
+            width: 65%;
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="yonghu">
+            用户：<input type="text" class="user">
+        </div>
+        <div class="mima">
+            密码：<input type="password" class="pass">
+        </div>
+        <div class="mima">
+            确认密码：<input type="password" class="pass1">
+        </div>
+        <div class="zhuce">点击注册</div>
+    </div>
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+    let user,pass,pass1;
+    $('.user').blur(function () {
+        user=$(this).val();
+        if(!user){
+            $(this).val('用户名不能为空');
+        }
+        else if(user.length<6){
+            $(this).val('用户名长度不能小于6');
+        }
+    }).focus(function () {
+        $(this).val('');
+    }).parent().next().find('.pass').blur(function () {
+        pass=$(this).val();
+        if(!pass){
+            $(this).val('密码不能为空');
+        }
+        else if(pass.length<6){
+            $(this).val('密码长度不能小于6');
+        }
+    }).focus(function () {
+        $(this).val('');
+    }).parent().next().find('.pass1').blur(function () {
+        pass1=$(this).val();
+        if(pass1!=pass){
+            $(this).val('两次密码不一致');
+        }
+    }).focus(function () {
+        $(this).val('');
+    })
+    $('.zhuce').click(function () {
+        $.ajax({
+            url:'sign-up.php',
+            data:{user,pass},
+            dataType:'text',
+            success:function (val) {
+                if(!isNaN(val)){
+                    location.href='page-login.html';
+                }
+                else{
+                    alert(val);
+                }
+            }
+        })
+    })
+</script>
+</html>
